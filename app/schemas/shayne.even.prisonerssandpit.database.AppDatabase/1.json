@@ -1,0 +1,207 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "03a0d8900ac1b7232117c1d4ef830975",
+    "entities": [
+      {
+        "tableName": "prisoner",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `q_table` INTEGER NOT NULL, `alpha` REAL NOT NULL, `gamma` REAL NOT NULL, FOREIGN KEY(`q_table`) REFERENCES `q_table`(`uid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "mUid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mName",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mQTable",
+            "columnName": "q_table",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mAlpha",
+            "columnName": "alpha",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mGamma",
+            "columnName": "gamma",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_prisoner_q_table",
+            "unique": false,
+            "columnNames": [
+              "q_table"
+            ],
+            "createSql": "CREATE  INDEX `index_prisoner_q_table` ON `${TABLE_NAME}` (`q_table`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "q_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "q_table"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "q_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "mUid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "q_table_row",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `q_table` INTEGER NOT NULL, `state` INTEGER NOT NULL, `betray_q_value` REAL NOT NULL, `stay_q_value` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "mUid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mQTable",
+            "columnName": "q_table",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mState",
+            "columnName": "state",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mBetrayQValue",
+            "columnName": "betray_q_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mStayQValue",
+            "columnName": "stay_q_value",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "prisoner_performance_score",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `prisoner` INTEGER NOT NULL, `coop_score` INTEGER NOT NULL, `betray_score` INTEGER NOT NULL, `tit_fot_tat_score` INTEGER NOT NULL, FOREIGN KEY(`prisoner`) REFERENCES `prisoner`(`uid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "mUid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mPrisoner",
+            "columnName": "prisoner",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCoopScore",
+            "columnName": "coop_score",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mBetrayScore",
+            "columnName": "betray_score",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mTitForTatScore",
+            "columnName": "tit_fot_tat_score",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_prisoner_performance_score_prisoner",
+            "unique": false,
+            "columnNames": [
+              "prisoner"
+            ],
+            "createSql": "CREATE  INDEX `index_prisoner_performance_score_prisoner` ON `${TABLE_NAME}` (`prisoner`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "prisoner",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "prisoner"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"03a0d8900ac1b7232117c1d4ef830975\")"
+    ]
+  }
+}

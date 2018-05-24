@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="shayne.even.prisonerssandpit.ui.activities.TrainerSettingsActivity">
+
+    <TextView
+        android:id="@+id/select_a_trainer_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:text="@string/trainer_settings_select_trainer_heading"
+        android:padding="5dp"/>
+    <RadioGroup
+        android:id="@+id/select_trainer_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/select_a_trainer_heading">
+        <RadioButton
+            android:id="@+id/coop_trainer_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cooperative_trainer_radio_button_txt"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/betray_trainer_radio_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/betraying_trainer_radio_button_text"/>
+        <RadioButton
+            android:id="@+id/tit_for_tat_trainer_radio_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tit_for_tat_trainer_radio_button_text"/>
+        <RadioButton
+            android:id="@+id/other_prisoner_trainer_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/other_prisoner_agent_radio_button_text"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/trainer_settings_episodes_spinner_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@id/select_trainer_radio_group"
+        style="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:text="@string/trainer_settings_episodes_spinner_label"
+        android:paddingStart="5dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:entries="@array/trainer_settings_episode_options"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintLeft_toRightOf="@id/trainer_settings_episodes_spinner_label"
+        app:layout_constraintTop_toBottomOf="@id/select_trainer_radio_group" >
+    </Spinner>
+
+    <CheckBox
+        android:id="@+id/training_notification_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/trainer_settings_train_button"
+        android:text="@string/notify_me_at_the_end_of_the_training"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp" />
+
+    <Button
+        android:id="@+id/trainer_settings_train_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/train_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:theme="@style/AppTheme"/>
+    <ProgressBar
+        android:id="@+id/add_prisoner_activity_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/add_prisoner_activity_submit_button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_toLeftOf="@id/add_prisoner_activity_submit_button"
+        android:visibility="invisible"
+        app:layout_constraintRight_toLeftOf="@id/trainer_settings_train_button"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
