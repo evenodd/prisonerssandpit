@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import shayne.even.prisonerssandpit.R;
-import shayne.even.prisonerssandpit.adapters.PrisonerAdapter;
+import shayne.even.prisonerssandpit.ui.adapters.MainPrisonerAdapter;
 import shayne.even.prisonerssandpit.ui.presenters.MainPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.MainPresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.MainView;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mPresenter = new MainPresenterImpl(this);
 
         mPrisonerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mPrisonerRecyclerView.setAdapter(new PrisonerAdapter(this));
+        mPrisonerRecyclerView.setAdapter(new MainPrisonerAdapter(this));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void addPrisonerToList(long id) {
-        ((PrisonerAdapter) mPrisonerRecyclerView.getAdapter()).appendPrisoner(id);
+        ((MainPrisonerAdapter) mPrisonerRecyclerView.getAdapter()).appendPrisoner(id);
     }
 
     @Override

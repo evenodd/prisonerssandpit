@@ -1,7 +1,6 @@
 package shayne.even.prisonerssandpit.ui.presenters;
 
-import android.content.Intent;
-
+import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.ui.views.TrainerSettingsView;
 
 /**
@@ -11,6 +10,8 @@ import shayne.even.prisonerssandpit.ui.views.TrainerSettingsView;
 public class TrainerSettingsPresenterImpl implements TrainerSettingsPresenter {
 
     private TrainerSettingsView mView;
+
+    private long mSelectedTrainerAgent;
 
     public TrainerSettingsPresenterImpl(TrainerSettingsView view) {
         mView = view;
@@ -26,5 +27,16 @@ public class TrainerSettingsPresenterImpl implements TrainerSettingsPresenter {
             mView.displayTrainerErrorMessage();
         }
         mView.startTrainerService(mView.getPrisonerId());
+    }
+
+    @Override
+    public void getPrisonerFromUser() {
+        mView.startPrisonerSelectDialog(mView.getPrisonerId());
+    }
+
+    @Override
+    public void handleSelectPrisoner(Prisoner prisoner) {
+        mSelectedTrainerAgent = prisoner.getUid();
+        mView.setSelectedAgent(prisoner.getName());
     }
 }

@@ -1,6 +1,5 @@
 package shayne.even.prisonerssandpit.ui.presenters;
 
-import shayne.even.prisonerssandpit.adapters.PrisonerAdapter;
 import shayne.even.prisonerssandpit.ui.views.PrisonerRowView;
 
 /**
@@ -15,6 +14,4 @@ public interface PrisonerListPresenter {
     int getPrisonerRowCount();
 
     void appendPrisoner(long id);
-
-    void navigateToPrisonersHome(PrisonerRowView view);
 }

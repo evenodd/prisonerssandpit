@@ -6,7 +6,7 @@ import android.util.Pair;
  * Created by Shayne Even on 20/05/2018.
  */
 
-public interface PrisonerDilemmaEnvironmentState {
+public interface EnvironmentState {
 
 
     boolean reachedEnd();

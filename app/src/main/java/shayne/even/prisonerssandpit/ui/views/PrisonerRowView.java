@@ -13,6 +13,4 @@ public interface PrisonerRowView {
     int getPositionInAdapter();
 
     Context getContext();
-
-    void navigateToPrisonerHome(long prisoner);
 }

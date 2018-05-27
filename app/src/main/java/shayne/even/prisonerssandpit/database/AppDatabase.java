@@ -31,4 +31,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract QTableDao qTableDao();
     public abstract QTableWithRowsDao qTableWithRowsDao();
     public abstract PrisonerPerformanceScoreDao prisonerPerformanceScoreDao();
+
+    public abstract QTableRowDao qTableRowDao();
 }

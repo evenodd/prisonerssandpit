@@ -20,15 +20,15 @@ public class PrisonerTester {
         PrisonersDilemma prisonersDilemma = new PrisonersDilemma();
         PrisonerAgentHolder prisonerAgentHolder = new PrisonerAgentHolder(prisoner, context);
 
-        prisonersDilemma.runEpisode(prisonerAgentHolder, new CooperativeAgent());
+        prisonersDilemma.runEpisode(prisonerAgentHolder, new CooperativeAgent(), null);
         int coopScore = prisonerAgentHolder.getScore();
         prisonersDilemma.resetEpisode();
 
-        prisonersDilemma.runEpisode(prisonerAgentHolder, new BetrayingAgent());
+        prisonersDilemma.runEpisode(prisonerAgentHolder, new BetrayingAgent(), null);
         int betrayScore = prisonerAgentHolder.getScore();
         prisonersDilemma.resetEpisode();
 
-        prisonersDilemma.runEpisode(prisonerAgentHolder, new TitForTatAgent());
+        prisonersDilemma.runEpisode(prisonerAgentHolder, new TitForTatAgent(), null);
         int titForTatScore = prisonerAgentHolder.getScore();
         prisonersDilemma.resetEpisode();
 

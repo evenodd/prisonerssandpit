@@ -15,5 +15,9 @@ public interface PrisonerHomeView {
 
     long getPrisonerId();
 
+    void startTesterSelectDialog(long excludedPrisoner);
+
     void navigateToTrainerOptions();
+
+    void startTestingActivity(long prisonerId, long uid);
 }

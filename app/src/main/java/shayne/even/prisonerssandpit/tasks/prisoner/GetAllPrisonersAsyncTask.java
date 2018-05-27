@@ -1,12 +1,10 @@
 package shayne.even.prisonerssandpit.tasks.prisoner;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import shayne.even.prisonerssandpit.database.AppDatabase;
 import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.tasks.BaseAsyncTask;
 
@@ -16,10 +14,10 @@ import shayne.even.prisonerssandpit.tasks.BaseAsyncTask;
 
 public class GetAllPrisonersAsyncTask extends BaseAsyncTask<Void, Void, ArrayList<Prisoner>> {
 
-    private OnGetAllPrisonerFinishedListener mListener;
+    private OnGetPrisonersFinishedListener mListener;
 
     public GetAllPrisonersAsyncTask(Context context,
-                             OnGetAllPrisonerFinishedListener listener) {
+                             OnGetPrisonersFinishedListener listener) {
         super(new WeakReference<>(context));
         mListener = listener;
     }

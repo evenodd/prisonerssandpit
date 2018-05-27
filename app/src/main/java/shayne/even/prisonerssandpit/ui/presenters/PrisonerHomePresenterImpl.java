@@ -59,6 +59,16 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
     }
 
     @Override
+    public void navigateToPrisonerTester() {
+        mView.startTesterSelectDialog(mView.getPrisonerId());
+    }
+
+    @Override
+    public void handleTesterSelected(Prisoner tester) {
+        mView.startTestingActivity(mView.getPrisonerId(), tester.getUid());
+    }
+
+    @Override
     public String toString() {
         return "PrisonerHomePresenterImpl{" +
                 "mView=" + mView +

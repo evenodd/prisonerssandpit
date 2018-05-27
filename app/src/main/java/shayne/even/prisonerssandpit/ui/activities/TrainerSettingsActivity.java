@@ -1,12 +1,12 @@
 package shayne.even.prisonerssandpit.ui.activities;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -15,19 +15,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import shayne.even.prisonerssandpit.R;
+import shayne.even.prisonerssandpit.models.Prisoner;
+import shayne.even.prisonerssandpit.ui.dialogs.PrisonerSelectDialog;
 import shayne.even.prisonerssandpit.ui.presenters.AgentTrainerService;
+import shayne.even.prisonerssandpit.ui.presenters.PrisonerSelectPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.TrainerSettingsPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.TrainerSettingsPresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.TrainerSettingsView;
 
-public class TrainerSettingsActivity extends AppCompatActivity implements TrainerSettingsView {
+public class TrainerSettingsActivity extends AppCompatActivity implements TrainerSettingsView,
+        PrisonerSelectPresenter.OnSelectListener {
 
     public static final String PRISONER_ID_EXTRA = "prisoner_id_extra";
 
     @BindView(R.id.select_trainer_radio_group)
     RadioGroup mTrainerRadioGroup;
 
-    @BindView(R.id.trainer_settings_episodes_spinner_label)
+    @BindView(R.id.trainer_settings_episodes_spinner)
     Spinner mEpisodesSpinner;
 
     @BindView(R.id.training_notification_checkbox)
@@ -36,11 +40,21 @@ public class TrainerSettingsActivity extends AppCompatActivity implements Traine
     @BindView(R.id.trainer_settings_train_button)
     Button mTrainButton;
 
-    TrainerSettingsPresenter mPresenter;
+    @BindView(R.id.other_prisoner_trainer_btn)
+    RadioButton mOtherPrisonerTrainerButton;
+
+    private TrainerSettingsPresenter mPresenter;
 
     @OnClick(R.id.trainer_settings_train_button)
     void onTrainButtonClick(View view) {
         mPresenter.startTrainerService();
+    }
+
+    @OnClick(R.id.other_prisoner_trainer_btn)
+    void onOtherPrisonerRadioButtonClicked (View view) {
+        if (mOtherPrisonerTrainerButton.isChecked()) {
+            mPresenter.getPrisonerFromUser();
+        }
     }
 
     @Override
@@ -88,11 +102,35 @@ public class TrainerSettingsActivity extends AppCompatActivity implements Traine
     }
 
     @Override
+    public void startPrisonerSelectDialog(long excludedPrisoner) {
+        PrisonerSelectDialog prisonerSelectDialog = new PrisonerSelectDialog(
+                this,
+                excludedPrisoner,
+                this
+        );
+        prisonerSelectDialog.setTitle(R.string.select_a_prisoner_recycler_view_text);
+        prisonerSelectDialog.show();
+    }
+
+    @Override
+    public void setSelectedAgent(String name) {
+        mOtherPrisonerTrainerButton.setText(String.format(
+                getString(R.string.other_prisoner_agent_radio_button_txt),
+                name
+        ));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainer_settings);
         ButterKnife.bind(this);
 
         mPresenter = new TrainerSettingsPresenterImpl(this);
+    }
+
+    @Override
+    public void onSelect(Prisoner prisoner) {
+        mPresenter.handleSelectPrisoner(prisoner);
     }
 }

@@ -3,8 +3,6 @@ package shayne.even.prisonerssandpit;
 import android.app.Application;
 import android.content.Context;
 
-import javax.inject.Inject;
-
 import shayne.even.prisonerssandpit.di.component.ApplicationComponent;
 import shayne.even.prisonerssandpit.di.component.DaggerApplicationComponent;
 import shayne.even.prisonerssandpit.di.modules.ApplicationModule;

@@ -1,30 +1,26 @@
 package shayne.even.prisonerssandpit.ui.presenters;
 
 import android.content.Context;
-import android.content.Intent;
 
 import java.util.ArrayList;
 
+import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.tasks.prisoner.GetAllPrisonersAsyncTask;
 import shayne.even.prisonerssandpit.tasks.prisoner.GetPrisonerAsyncTask;
-import shayne.even.prisonerssandpit.tasks.prisoner.OnGetAllPrisonerFinishedListener;
-import shayne.even.prisonerssandpit.ui.activities.PrisonerHomeActivity;
-import shayne.even.prisonerssandpit.models.Prisoner;
+import shayne.even.prisonerssandpit.tasks.prisoner.OnGetPrisonersFinishedListener;
 import shayne.even.prisonerssandpit.tasks.prisoner.OnGetPrisonerFinishedListener;
 import shayne.even.prisonerssandpit.ui.views.PrisonerListView;
 import shayne.even.prisonerssandpit.ui.views.PrisonerRowView;
 
 /**
- * Created by Shayne Even on 13/05/2018.
+ * Created by Shayne Even on 27/05/2018.
  */
 
-public class PrisonerListPresenterImpl implements PrisonerListPresenter,
-        OnGetAllPrisonerFinishedListener,
+class PrisonerListPresenterImpl implements PrisonerListPresenter, OnGetPrisonersFinishedListener,
         OnGetPrisonerFinishedListener {
-
-    private ArrayList<Prisoner> mPrisoners;
+    protected ArrayList<Prisoner> mPrisoners;
     private PrisonerListView mView;
-    private Context mContext;
+    protected Context mContext;
 
     public PrisonerListPresenterImpl(PrisonerListView view, Context context) {
         mPrisoners = new ArrayList<>();
@@ -64,8 +60,4 @@ public class PrisonerListPresenterImpl implements PrisonerListPresenter,
         new GetPrisonerAsyncTask(mContext, this, id).execute();
     }
 
-    @Override
-    public void navigateToPrisonersHome(PrisonerRowView view) {
-        view.navigateToPrisonerHome(mPrisoners.get(view.getPositionInAdapter()).getUid());
-    }
 }

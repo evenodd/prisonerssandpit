@@ -23,7 +23,7 @@ public class Trainer {
         QLearningPrisoner learningPrisoner = new QLearningPrisoner(context, prisoner);
 
         for (int i = 0; i < episodes; i++) {
-            prisonersDilemma.runEpisode(learningPrisoner,mTrainerAgent);
+            prisonersDilemma.runEpisode(learningPrisoner,mTrainerAgent, null);
             prisonersDilemma.resetEpisode();
         }
 

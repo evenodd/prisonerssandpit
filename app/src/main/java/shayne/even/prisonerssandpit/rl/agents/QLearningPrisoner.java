@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.Random;
 
 import shayne.even.prisonerssandpit.models.Prisoner;
-import shayne.even.prisonerssandpit.rl.episodes.PrisonerDilemmaEnvironmentState;
+import shayne.even.prisonerssandpit.rl.episodes.EnvironmentState;
 import shayne.even.prisonerssandpit.rl.episodes.PrisonersDilemma;
 
 /**
@@ -31,26 +31,26 @@ public class QLearningPrisoner implements PrisonersDilemma.Agent {
     }
 
     @Override
-    public void onPreEpisode(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState) {
+    public void onPreEpisode(EnvironmentState environmentState) {
 
     }
 
     @Override
-    public void onPostEpisode(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState) {
+    public void onPostEpisode(EnvironmentState environmentState) {
     }
 
     @Override
-    public void onPreIteration(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState) {
-        currentState = prisonerDilemmaEnvironmentState.getState();
+    public void onPreIteration(EnvironmentState environmentState) {
+        currentState = environmentState.getState();
         currentAction = mRandom.nextInt(2);
     }
 
     @Override
-    public void onPostIteration(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState,
+    public void onPostIteration(EnvironmentState environmentState,
                                 int reward) {
         mPrisoner.learn(
                 currentState,
-                prisonerDilemmaEnvironmentState.getState(),
+                environmentState.getState(),
                 reward,
                 currentAction,
                 mContext

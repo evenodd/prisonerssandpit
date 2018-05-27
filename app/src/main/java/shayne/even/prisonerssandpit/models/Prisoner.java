@@ -112,7 +112,12 @@ public class Prisoner {
     }
 
     public int getAction(Context context, int state) {
-        QTableRow row = mQTableHolder.getRow(state, context);
+
+        QTableRow row = getComponent(context)
+                .getAppDatabase()
+                .qTableRowDao()
+                .getRow(mUid, state);
+
         if (row.getStayQValue() == row.getBetrayQValue()) return new Random().nextInt(2);
         return row.getStayQValue() > row.getBetrayQValue() ? STAY : BETRAY;
     }

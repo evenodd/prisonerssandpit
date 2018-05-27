@@ -18,5 +18,9 @@ public interface TrainerSettingsView {
     long getPrisonerId();
 
     void startTrainerService(long prisonerId);
+
+    void startPrisonerSelectDialog(long excludedPrisoner);
+
+    void setSelectedAgent(String name);
 }
 

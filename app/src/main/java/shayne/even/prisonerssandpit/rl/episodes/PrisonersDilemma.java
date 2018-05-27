@@ -7,9 +7,9 @@ import android.util.Pair;
  * Created by Shayne Even on 2/05/2018.
  */
 
-public class PrisonersDilemma implements PrisonerDilemmaEnvironmentState {
+public class PrisonersDilemma implements EnvironmentState {
     private static final String LOG_TAG = "seven";
-    private static final int ITERATIONS = 10;
+    public static final int ITERATIONS = 10;
     public static final int STAY = 0;
     public static final int BETRAY = 1;
     private static final int[][] REWARD_MATRIX = {
@@ -27,14 +27,23 @@ public class PrisonersDilemma implements PrisonerDilemmaEnvironmentState {
     }
 
     private void updateState(int action, int othersAction) {
-        Log.v(LOG_TAG, String.format(
-                "From state %10d: %c, %c",
-                mState,
-                action == 0 ? 'S' : 'B',
-                othersAction == 0 ? 'S' : 'B')
-        );
+        int state = mState;
 
         mState = (mState * 4) + (action << 1) + othersAction + 1;
+
+        Log.v(LOG_TAG, String.format(
+                "From state %10d to %10d: %d(%c), %d(%c) Rewards: %d, %d",
+                state,
+                mState,
+                action,
+                action == STAY ? 'S' : 'B',
+                othersAction,
+                othersAction == STAY ? 'S' : 'B',
+                getRewards().first,
+                getRewards().second
+            )
+        );
+
     }
 
     @Override
@@ -64,18 +73,22 @@ public class PrisonersDilemma implements PrisonerDilemmaEnvironmentState {
         );
     }
 
-    public void runEpisode(Agent firstAgent, Agent secondAgent) {
+    public void runEpisode(Agent firstAgent, Agent secondAgent, EpisodeListener listener) {
         firstAgent.onPreEpisode(this);
         secondAgent.onPreEpisode(this);
+        if (listener != null) listener.onPreEpisode(this);
         while(!reachedEnd()) {
             firstAgent.onPreIteration( this);
             secondAgent.onPreIteration( this);
+            if (listener != null) listener.onPreIteration( this);
             updateState(firstAgent.getAction(mState), secondAgent.getAction(mState));
             firstAgent.onPostIteration(this, getRewards().first);
-            firstAgent.onPostIteration(this, getRewards().second);
+            secondAgent.onPostIteration(this, getRewards().second);
+            if (listener != null) listener.onPostIteration(this);
         }
         firstAgent.onPostEpisode(this);
         secondAgent.onPostEpisode(this);
+        if (listener != null) listener.onPostEpisode(this);
     }
 
     public void resetEpisode() {
@@ -85,10 +98,18 @@ public class PrisonersDilemma implements PrisonerDilemmaEnvironmentState {
     public interface Agent {
         int getAction(int state);
 
-        void onPreEpisode(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState);
-        void onPostEpisode(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState);
+        void onPreEpisode(EnvironmentState environmentState);
+        void onPostEpisode(EnvironmentState environmentState);
 
-        void onPreIteration(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState);
-        void onPostIteration(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState, int reward);
+        void onPreIteration(EnvironmentState environmentState);
+        void onPostIteration(EnvironmentState environmentState, int reward);
+    }
+
+    public interface EpisodeListener {
+        void onPreEpisode(EnvironmentState environmentState);
+        void onPostEpisode(EnvironmentState environmentState);
+
+        void onPreIteration(EnvironmentState environmentState);
+        void onPostIteration(EnvironmentState environmentState);
     }
 }

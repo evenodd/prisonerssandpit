@@ -28,6 +28,9 @@ public interface PrisonerDao {
     @Query("SELECT * FROM prisoner WHERE name LIKE :name LIMIT 1")
     Prisoner findByName(String name);
 
+    @Query("SELECT * FROM prisoner WHERE uid != :excludedPrisoner")
+    List<Prisoner> getWherePrisonerIsNot(long excludedPrisoner);
+
     @Insert
     long insertPrisoner(Prisoner prisoner);
 }

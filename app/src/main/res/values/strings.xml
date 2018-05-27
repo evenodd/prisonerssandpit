@@ -9,7 +9,7 @@
     <string name="submit_button_text">Submit</string>
     <string name="failed_add_prisoner_msg">Failed to add Prisoner</string>
     <string name="title_activity_prisoner_home">PrisonerHomeActivity</string>
-    <string name="title_home">Home</string>
+    <string name="title_test">Test</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="prisoner_home_status_label">Status:</string>
@@ -108,4 +108,13 @@
     <string name="notify_me_at_the_end_of_the_training">Notify me at the end of the training</string>
     <string name="train_button_text">Train</string>
     <string name="trainer_settings_error_msg">Invalid trainer selected</string>
+    <string name="title_activity_testing">TestingActivity</string>
+    <string name="select_a_prisoner_recycler_view_text">Select a Prisoner</string>
+    <string name="other_prisoner_agent_radio_button_txt">Other Prisoner Agent: %s</string>
+    <string name="vs_header_txt">vs</string>
+    <string name="stay_result_action">COOP</string>
+    <string name="betray_result_action">BETRAY</string>
+    <string name="select_tester_dialog_title">Select Tester</string>
+    <string name="testing_activity_score_heading_format">%s\'s Score</string>
+    <string name="default_score">0</string>
 </resources>

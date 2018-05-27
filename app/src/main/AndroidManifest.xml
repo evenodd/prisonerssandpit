@@ -30,6 +30,14 @@
             android:name=".ui.presenters.AgentTrainerService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity
+            android:name=".ui.activities.TestingActivity"
+            android:label="@string/title_activity_testing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".ui.activitPrisonerSelectDialogvity"-->
+            <!--android:theme="@android:style/Theme.Holo.Light.Dialog" />-->
     </application>
 
 </manifest>

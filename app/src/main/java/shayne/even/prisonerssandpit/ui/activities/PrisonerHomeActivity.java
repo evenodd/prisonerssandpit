@@ -11,11 +11,15 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import shayne.even.prisonerssandpit.R;
+import shayne.even.prisonerssandpit.models.Prisoner;
+import shayne.even.prisonerssandpit.ui.dialogs.PrisonerSelectDialog;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenter;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenterImpl;
+import shayne.even.prisonerssandpit.ui.presenters.PrisonerSelectPresenter;
 import shayne.even.prisonerssandpit.ui.views.PrisonerHomeView;
 
-public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerHomeView {
+public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerHomeView,
+        PrisonerSelectPresenter.OnSelectListener {
 
     public static final String PRISONER_ID = "prisoner_id_extra";
     @BindView(R.id.prisoner_home_status_text_view)
@@ -81,13 +85,27 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_train:
+                case R.id.navigation_train :
                     mPresenter.navigateToTrainerOptions();
+                    return true;
+                case R.id.navigation_test :
+                    mPresenter.navigateToPrisonerTester();
                     return true;
             }
             return false;
         }
     };
+
+    @Override
+    public void startTesterSelectDialog(long excludedPrisoner) {
+        PrisonerSelectDialog prisonerSelectDialog = new PrisonerSelectDialog(
+                this,
+                excludedPrisoner,
+                this
+        );
+        prisonerSelectDialog.setTitle(R.string.select_tester_dialog_title);
+        prisonerSelectDialog.show();
+    }
 
     @Override
     public void navigateToTrainerOptions() {
@@ -96,4 +114,16 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
         startActivity(intent);
     }
 
+    @Override
+    public void startTestingActivity(long prisonerId, long testerId) {
+        startActivity(new Intent(this, TestingActivity.class)
+                .putExtra(TestingActivity.PRISONER_ID_EXTRA, prisonerId)
+                .putExtra(TestingActivity.PRISONER_TESTER_ID_EXTRA, testerId)
+        );
+    }
+
+    @Override
+    public void onSelect(Prisoner tester) {
+        mPresenter.handleTesterSelected(tester);
+    }
 }

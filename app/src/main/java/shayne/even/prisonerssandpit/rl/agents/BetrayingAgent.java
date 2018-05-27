@@ -1,6 +1,6 @@
 package shayne.even.prisonerssandpit.rl.agents;
 
-import shayne.even.prisonerssandpit.rl.episodes.PrisonerDilemmaEnvironmentState;
+import shayne.even.prisonerssandpit.rl.episodes.EnvironmentState;
 import shayne.even.prisonerssandpit.rl.episodes.PrisonersDilemma;
 
 /**
@@ -14,22 +14,22 @@ public class BetrayingAgent implements PrisonersDilemma.Agent {
     }
 
     @Override
-    public void onPreEpisode(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState) {
+    public void onPreEpisode(EnvironmentState environmentState) {
 
     }
 
     @Override
-    public void onPostEpisode(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState) {
+    public void onPostEpisode(EnvironmentState environmentState) {
 
     }
 
     @Override
-    public void onPreIteration(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState) {
+    public void onPreIteration(EnvironmentState environmentState) {
 
     }
 
     @Override
-    public void onPostIteration(PrisonerDilemmaEnvironmentState prisonerDilemmaEnvironmentState,
+    public void onPostIteration(EnvironmentState environmentState,
                                 int reward) {
 
     }
