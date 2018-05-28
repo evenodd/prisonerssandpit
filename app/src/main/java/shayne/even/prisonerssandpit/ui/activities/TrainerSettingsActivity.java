@@ -17,7 +17,7 @@ import butterknife.OnClick;
 import shayne.even.prisonerssandpit.R;
 import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.ui.dialogs.PrisonerSelectDialog;
-import shayne.even.prisonerssandpit.ui.presenters.AgentTrainerService;
+import shayne.even.prisonerssandpit.service.AgentTrainerService;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerSelectPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.TrainerSettingsPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.TrainerSettingsPresenterImpl;
@@ -94,11 +94,19 @@ public class TrainerSettingsActivity extends AppCompatActivity implements Traine
     }
 
     @Override
-    public void startTrainerService(long prisonerId) {
-        startService(
-                new Intent(this, AgentTrainerService.class)
-                        .putExtra(PRISONER_ID_EXTRA, getPrisonerId())
-        );
+    public void startTrainerService(long prisoner, TrainerSettingsPresenter.TrainerOption trainer,
+                                    String episodeOption, boolean shouldPushNotification,
+                                    Long prisonerTrainer) {
+        Intent intent = new Intent(this, AgentTrainerService.class)
+                .putExtra(AgentTrainerService.PRISONER_ID_EXTRA, getPrisonerId())
+                .putExtra(AgentTrainerService.TRAINER_EXTRA, trainer.getValue())
+                .putExtra(AgentTrainerService.EPISODE_OPTION_EXTRA, episodeOption)
+                .putExtra(AgentTrainerService.PUSH_NOTIFICATION_EXTRA, shouldPushNotification);
+        if (prisonerTrainer != null) {
+            intent.putExtra(AgentTrainerService.PRISONER_TRAINER_EXTRA, prisonerTrainer);
+        }
+
+        startService(intent);
     }
 
     @Override

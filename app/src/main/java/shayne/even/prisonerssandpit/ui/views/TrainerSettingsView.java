@@ -17,7 +17,9 @@ public interface TrainerSettingsView {
 
     long getPrisonerId();
 
-    void startTrainerService(long prisonerId);
+    void startTrainerService(long prisoner, TrainerSettingsPresenter.TrainerOption trainer,
+                             String episodeOption, boolean shouldPushNotification,
+                             Long prisonerTrainer);
 
     void startPrisonerSelectDialog(long excludedPrisoner);
 

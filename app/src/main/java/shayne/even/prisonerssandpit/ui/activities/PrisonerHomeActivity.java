@@ -23,7 +23,7 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
 
     public static final String PRISONER_ID = "prisoner_id_extra";
     @BindView(R.id.prisoner_home_status_text_view)
-    TextView mTextMessage;
+    TextView mStatusTextView;
 
     @BindView(R.id.prisoner_home_activity_prisoner_name)
     TextView mNameTextView;
@@ -120,6 +120,11 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
                 .putExtra(TestingActivity.PRISONER_ID_EXTRA, prisonerId)
                 .putExtra(TestingActivity.PRISONER_TESTER_ID_EXTRA, testerId)
         );
+    }
+
+    @Override
+    public void setStatus(String status) {
+        mStatusTextView.setText(status);
     }
 
     @Override

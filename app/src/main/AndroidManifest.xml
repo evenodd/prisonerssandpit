@@ -27,7 +27,7 @@
         <activity android:name=".ui.activities.TrainerSettingsActivity" />
 
         <service
-            android:name=".ui.presenters.AgentTrainerService"
+            android:name=".service.AgentTrainerService"
             android:enabled="true"
             android:exported="true" />
 

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "03a0d8900ac1b7232117c1d4ef830975",
+    "identityHash": "a43889e9bc4a3b364c5f058cb21f3f0a",
     "entities": [
       {
         "tableName": "prisoner",
@@ -197,11 +197,64 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "prisoner_status",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `prisoner` INTEGER NOT NULL, `status` TEXT, FOREIGN KEY(`prisoner`) REFERENCES `prisoner`(`uid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "mUid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mPrisoner",
+            "columnName": "prisoner",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mStatus",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_prisoner_status_prisoner",
+            "unique": false,
+            "columnNames": [
+              "prisoner"
+            ],
+            "createSql": "CREATE  INDEX `index_prisoner_status_prisoner` ON `${TABLE_NAME}` (`prisoner`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "prisoner",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "prisoner"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"03a0d8900ac1b7232117c1d4ef830975\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a43889e9bc4a3b364c5f058cb21f3f0a\")"
     ]
   }
 }

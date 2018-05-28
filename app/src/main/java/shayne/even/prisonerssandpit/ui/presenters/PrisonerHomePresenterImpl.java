@@ -6,6 +6,9 @@ import android.widget.Toast;
 
 import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.models.PrisonerPerformanceScore;
+import shayne.even.prisonerssandpit.models.PrisonerStatus;
+import shayne.even.prisonerssandpit.tasks.GetPrisonerStatusAsyncTask;
+import shayne.even.prisonerssandpit.tasks.OnGetStatusListener;
 import shayne.even.prisonerssandpit.tasks.performanceScore.GetPerformanceScoreAsyncTask;
 import shayne.even.prisonerssandpit.tasks.performanceScore.OnGetPerformanceScoreListener;
 import shayne.even.prisonerssandpit.tasks.prisoner.GetPrisonerAsyncTask;
@@ -18,7 +21,8 @@ import shayne.even.prisonerssandpit.ui.views.PrisonerHomeView;
 
 public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
         OnGetPrisonerFinishedListener,
-        OnGetPerformanceScoreListener {
+        OnGetPerformanceScoreListener,
+        OnGetStatusListener{
 
     private PrisonerHomeView mView;
     private Context mContext;
@@ -30,10 +34,16 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
     }
 
     @Override
+    public void onSuccess(PrisonerStatus prisonerStatus) {
+        mView.setStatus(prisonerStatus.getStatus());
+    }
+
+    @Override
     public void onSuccess(Prisoner prisoner) {
         mPrisoner = prisoner;
         mView.setName(prisoner.getName());
         getPerformanceScore(mPrisoner.getUid());
+        getStatus(mPrisoner.getUid());
     }
 
     @Override
@@ -51,6 +61,10 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
     @Override
     public void getPrisoner() {
         new GetPrisonerAsyncTask(mContext, this, mView.getPrisonerId()).execute();
+    }
+
+    private void getStatus(long prisonerId) {
+        new GetPrisonerStatusAsyncTask(mContext, this, prisonerId).execute();
     }
 
     @Override

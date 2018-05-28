@@ -117,4 +117,9 @@
     <string name="select_tester_dialog_title">Select Tester</string>
     <string name="testing_activity_score_heading_format">%s\'s Score</string>
     <string name="default_score">0</string>
+    <string name="idle_status">Idle</string>
+    <string name="channel_name">prisoner_sandpit_channel</string>
+    <string name="channel_description">...</string>
+    <string name="completed_training_notification_title">Training Completed</string>
+    <string name="completed_training_notification_content">%s has finished training and is ready to be tested</string>
 </resources>

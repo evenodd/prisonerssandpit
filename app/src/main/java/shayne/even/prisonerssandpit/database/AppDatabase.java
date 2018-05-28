@@ -5,6 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 
 import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.models.PrisonerPerformanceScore;
+import shayne.even.prisonerssandpit.models.PrisonerStatus;
 import shayne.even.prisonerssandpit.models.QTable;
 import shayne.even.prisonerssandpit.models.QTableRow;
 
@@ -20,6 +21,7 @@ import static shayne.even.prisonerssandpit.database.AppDatabase.DB_VERSION;
                 QTable.class,
                 QTableRow.class,
                 PrisonerPerformanceScore.class,
+                PrisonerStatus.class
         },
         version = DB_VERSION
 )
@@ -31,6 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract QTableDao qTableDao();
     public abstract QTableWithRowsDao qTableWithRowsDao();
     public abstract PrisonerPerformanceScoreDao prisonerPerformanceScoreDao();
+    public abstract PrisonerStatusDao prisonerStatusDao();
 
     public abstract QTableRowDao qTableRowDao();
 }

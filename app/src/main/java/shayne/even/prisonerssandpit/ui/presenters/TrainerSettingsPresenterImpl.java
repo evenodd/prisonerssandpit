@@ -11,7 +11,7 @@ public class TrainerSettingsPresenterImpl implements TrainerSettingsPresenter {
 
     private TrainerSettingsView mView;
 
-    private long mSelectedTrainerAgent;
+    private Long mSelectedTrainerAgent;
 
     public TrainerSettingsPresenterImpl(TrainerSettingsView view) {
         mView = view;
@@ -26,7 +26,13 @@ public class TrainerSettingsPresenterImpl implements TrainerSettingsPresenter {
         if (trainerOption == null) {
             mView.displayTrainerErrorMessage();
         }
-        mView.startTrainerService(mView.getPrisonerId());
+        mView.startTrainerService(
+                mView.getPrisonerId(),
+                trainerOption,
+                episodeOption,
+                shouldPushNotification,
+                mSelectedTrainerAgent
+        );
     }
 
     @Override

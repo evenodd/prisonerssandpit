@@ -20,4 +20,6 @@ public interface PrisonerHomeView {
     void navigateToTrainerOptions();
 
     void startTestingActivity(long prisonerId, long uid);
+
+    void setStatus(String status);
 }

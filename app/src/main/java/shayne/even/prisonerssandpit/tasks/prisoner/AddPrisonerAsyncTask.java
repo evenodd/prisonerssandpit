@@ -5,7 +5,9 @@ import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
+import shayne.even.prisonerssandpit.R;
 import shayne.even.prisonerssandpit.models.Prisoner;
+import shayne.even.prisonerssandpit.models.PrisonerStatus;
 import shayne.even.prisonerssandpit.models.QTable;
 import shayne.even.prisonerssandpit.rl.testers.PrisonerTester;
 import shayne.even.prisonerssandpit.tasks.BaseAsyncTask;
@@ -44,9 +46,11 @@ public class AddPrisonerAsyncTask extends BaseAsyncTask<Void, Void, Long> {
                 )
         );
 
-        getTaskComponent()
-                .getAppDatabase()
-                .prisonerPerformanceScoreDao()
+        getTaskComponent().getAppDatabase().prisonerStatusDao().insert(
+                        new PrisonerStatus(id, mContext.get().getString(R.string.idle_status))
+        );
+
+        getTaskComponent().getAppDatabase().prisonerPerformanceScoreDao()
                 .insertPrisonerPerformanceScore(
                         new PrisonerTester().generatePerformanceScores(
                                 getTaskComponent().getAppDatabase().prisonerDao().getPrisoner(id),
