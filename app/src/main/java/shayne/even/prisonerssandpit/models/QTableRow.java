@@ -66,4 +66,15 @@ public class QTableRow {
     public long getQTable() {
         return mQTable;
     }
+
+    @Override
+    public String toString() {
+        return "QTableRow{" +
+                "mUid=" + mUid +
+                ", mQTable=" + mQTable +
+                ", mState=" + mState +
+                ", mBetrayQValue=" + mBetrayQValue +
+                ", mStayQValue=" + mStayQValue +
+                '}';
+    }
 }

@@ -6,6 +6,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.sql.Date;
+
 import static shayne.even.prisonerssandpit.models.PrisonerPerformanceScore.PRISONER;
 
 /**
@@ -40,12 +42,16 @@ public class PrisonerPerformanceScore {
     @ColumnInfo(name = "tit_fot_tat_score")
     private int mTitForTatScore;
 
+    @ColumnInfo(name = "created_at")
+    private Date mCreatedAt;
+
     public PrisonerPerformanceScore(long prisoner, int coopScore, int betrayScore,
                                     int titForTatScore) {
         mPrisoner = prisoner;
         mCoopScore = coopScore;
         mBetrayScore = betrayScore;
         mTitForTatScore = titForTatScore;
+        mCreatedAt = new Date(new java.util.Date().getTime());
     }
 
     public long getUid() {
@@ -86,6 +92,14 @@ public class PrisonerPerformanceScore {
 
     public void setTitForTatScore(int titForTatScore) {
         mTitForTatScore = titForTatScore;
+    }
+
+    public Date getCreatedAt() {
+        return mCreatedAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        mCreatedAt = createdAt;
     }
 
     @Override

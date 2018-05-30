@@ -14,7 +14,11 @@ import shayne.even.prisonerssandpit.models.PrisonerPerformanceScore;
 @Dao
 public interface PrisonerPerformanceScoreDao {
 
-    @Query("SELECT * FROM prisoner_performance_score WHERE prisoner = :prisonerId")
+    @Query("SELECT * " +
+            "FROM prisoner_performance_score " +
+            "WHERE prisoner = :prisonerId " +
+            "ORDER BY created_at DESC " +
+            "LIMIT 1;")
     PrisonerPerformanceScore getPrisonersScore(long prisonerId);
 
     @Insert

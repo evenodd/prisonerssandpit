@@ -21,11 +21,11 @@
     <string name="title_activity_trainer_settings">Trainer Settings</string>
 
     <string-array name="trainer_settings_episode_options">
+        <item>100</item>
+        <item>500</item>
         <item>1000</item>
         <item>10000</item>
         <item>100000</item>
-        <item>for 5 minutes</item>
-        <item>for 10 minutes</item>
     </string-array>
 
     <!-- Strings related to Settings -->
@@ -122,4 +122,5 @@
     <string name="channel_description">...</string>
     <string name="completed_training_notification_title">Training Completed</string>
     <string name="completed_training_notification_content">%s has finished training and is ready to be tested</string>
+    <string name="learning_status">Learning</string>
 </resources>

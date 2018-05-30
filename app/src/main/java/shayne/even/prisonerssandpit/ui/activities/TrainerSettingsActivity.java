@@ -100,13 +100,14 @@ public class TrainerSettingsActivity extends AppCompatActivity implements Traine
         Intent intent = new Intent(this, AgentTrainerService.class)
                 .putExtra(AgentTrainerService.PRISONER_ID_EXTRA, getPrisonerId())
                 .putExtra(AgentTrainerService.TRAINER_EXTRA, trainer.getValue())
-                .putExtra(AgentTrainerService.EPISODE_OPTION_EXTRA, episodeOption)
+                .putExtra(AgentTrainerService.EPISODE_OPTION_EXTRA, Integer.parseInt(episodeOption))
                 .putExtra(AgentTrainerService.PUSH_NOTIFICATION_EXTRA, shouldPushNotification);
         if (prisonerTrainer != null) {
             intent.putExtra(AgentTrainerService.PRISONER_TRAINER_EXTRA, prisonerTrainer);
         }
 
         startService(intent);
+        finish();
     }
 
     @Override

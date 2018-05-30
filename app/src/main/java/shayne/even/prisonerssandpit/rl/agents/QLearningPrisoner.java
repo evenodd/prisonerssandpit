@@ -53,7 +53,12 @@ public class QLearningPrisoner implements PrisonersDilemma.Agent {
                 environmentState.getState(),
                 reward,
                 currentAction,
-                mContext
+                mContext,
+                environmentState.reachedEnd()
         );
+    }
+
+    public void save() {
+        mPrisoner.saveQTable(mContext);
     }
 }

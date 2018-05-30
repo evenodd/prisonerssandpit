@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a43889e9bc4a3b364c5f058cb21f3f0a",
+    "identityHash": "92910d6f0aa5bc39748cdeed08cb50ba",
     "entities": [
       {
         "tableName": "prisoner",
@@ -135,7 +135,7 @@
       },
       {
         "tableName": "prisoner_performance_score",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `prisoner` INTEGER NOT NULL, `coop_score` INTEGER NOT NULL, `betray_score` INTEGER NOT NULL, `tit_fot_tat_score` INTEGER NOT NULL, FOREIGN KEY(`prisoner`) REFERENCES `prisoner`(`uid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `prisoner` INTEGER NOT NULL, `coop_score` INTEGER NOT NULL, `betray_score` INTEGER NOT NULL, `tit_fot_tat_score` INTEGER NOT NULL, `created_at` INTEGER, FOREIGN KEY(`prisoner`) REFERENCES `prisoner`(`uid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "mUid",
@@ -166,6 +166,12 @@
             "columnName": "tit_fot_tat_score",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "mCreatedAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -254,7 +260,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a43889e9bc4a3b364c5f058cb21f3f0a\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"92910d6f0aa5bc39748cdeed08cb50ba\")"
     ]
   }
 }

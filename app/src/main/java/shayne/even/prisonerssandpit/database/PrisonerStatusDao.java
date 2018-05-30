@@ -3,6 +3,7 @@ package shayne.even.prisonerssandpit.database;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import shayne.even.prisonerssandpit.models.PrisonerStatus;
 
@@ -17,4 +18,9 @@ public interface PrisonerStatusDao {
 
     @Query("SELECT * FROM prisoner_status WHERE prisoner = :prisoner")
     PrisonerStatus getPrisonerStatus(long prisoner);
+
+    @Query("UPDATE prisoner_status " +
+            "SET status = :status " +
+            "WHERE prisoner = :prisonerId")
+    void updateStatus(long prisonerId, String status);
 }

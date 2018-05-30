@@ -7,6 +7,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.content.Context;
+import android.util.Log;
 
 import java.util.Locale;
 import java.util.Random;
@@ -136,14 +137,15 @@ public class Prisoner {
         }
 
         QTableRow getRow(int state, Context context) {
-            for (QTableRow row : mQTableHolder.getQTable(context).rows) {
-                if (row.getState() == state) return row;
-            }
-            throw new IllegalArgumentException(String.format(
-                    Locale.ENGLISH,
-                    "Invalid state %d",
-                    state)
-            );
+            return getQTable(context).getRowsIndexedByState().get(state);
+//            for (QTableRow row : mQTableHolder.getQTable(context).rows) {
+//                if (row.getState() == state) return row;
+//            }
+//            throw new IllegalArgumentException(String.format(
+//                    Locale.ENGLISH,
+//                    "Invalid state %d",
+//                    state)
+//            );
         }
 
         void updateQTable(Context context) {
@@ -166,9 +168,11 @@ public class Prisoner {
         return row.getBetrayQValue();
     }
 
-    public void learn(int startState, int state, int reward, int action, Context context) {
+    public void learn(int startState, int state, int reward, int action, Context context,
+                      boolean finalState) {
         double q = getQValue(startState, action, context);
-        double value = q + mAlpha * (reward + mGamma * getMaxQ(state, context) - q);
+        double maxQ = finalState ? 0 : getMaxQ(state, context);
+        double value = q + mAlpha * (reward + mGamma * maxQ - q);
 
         if (action == BETRAY) {
             mQTableHolder.getRow(startState, context).setBetrayQValue(value);

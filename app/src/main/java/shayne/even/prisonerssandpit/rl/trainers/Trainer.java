@@ -1,6 +1,7 @@
 package shayne.even.prisonerssandpit.rl.trainers;
 
 import android.content.Context;
+import android.util.Log;
 
 import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.rl.agents.QLearningPrisoner;
@@ -12,6 +13,7 @@ import shayne.even.prisonerssandpit.rl.episodes.PrisonersDilemma;
 
 public class Trainer {
 
+    private static final String TAG = "seven";
     private PrisonersDilemma.Agent mTrainerAgent;
 
     public Trainer(PrisonersDilemma.Agent trainerAgent) {
@@ -23,11 +25,12 @@ public class Trainer {
         QLearningPrisoner learningPrisoner = new QLearningPrisoner(context, prisoner);
 
         for (int i = 0; i < episodes; i++) {
-            prisonersDilemma.runEpisode(learningPrisoner,mTrainerAgent, null);
+            prisonersDilemma.runEpisode(learningPrisoner, mTrainerAgent, null);
             prisonersDilemma.resetEpisode();
+            Log.v(TAG, "Completed episode: " + i);
         }
-
-        prisoner.saveQTable(context);
+        if (episodes > 0) learningPrisoner.save();
+//        prisoner.saveQTable(context);
     }
 
 }

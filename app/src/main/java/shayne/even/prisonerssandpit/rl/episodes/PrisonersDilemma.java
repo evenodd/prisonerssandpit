@@ -31,18 +31,18 @@ public class PrisonersDilemma implements EnvironmentState {
 
         mState = (mState * 4) + (action << 1) + othersAction + 1;
 
-        Log.v(LOG_TAG, String.format(
-                "From state %10d to %10d: %d(%c), %d(%c) Rewards: %d, %d",
-                state,
-                mState,
-                action,
-                action == STAY ? 'S' : 'B',
-                othersAction,
-                othersAction == STAY ? 'S' : 'B',
-                getRewards().first,
-                getRewards().second
-            )
-        );
+//        Log.v(LOG_TAG, String.format(
+//                "From state %10d to %10d: %d(%c), %d(%c) Rewards: %d, %d",
+//                state,
+//                mState,
+//                action,
+//                action == STAY ? 'S' : 'B',
+//                othersAction,
+//                othersAction == STAY ? 'S' : 'B',
+//                getRewards().first,
+//                getRewards().second
+//            )
+//        );
 
     }
 
