@@ -31,25 +31,8 @@ android {
 
 dependencies {
 
-//    // ViewModel and LiveData
-//    implementation "android.arch.lifecycle:extensions:1.1.1"
-//    // alternatively, just ViewModel
-//    implementation "android.arch.lifecycle:viewmodel:1.1.1"
-//    // alternatively, just LiveData
-//    implementation "android.arch.lifecycle:livedata:1.1.1"
-//
-//    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
-//
-//    // Room (use 1.1.0-beta3 for latest beta)
-//
-//    // Paging
-//    implementation "android.arch.paging:runtime:1.0.0-rc1"
-//
-//    // Test helpers for LiveData
-//    testImplementation "android.arch.core:core-testing:1.1.1"
-//
-//    // Test helpers for Room
-//    testImplementation "android.arch.persistence.room:testing:1.0.0"
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
     implementation 'com.android.support:support-v4:27.1.1'
     compile 'com.google.dagger:dagger:2.10'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
@@ -57,7 +40,7 @@ dependencies {
     compile 'com.google.dagger:dagger-android:2.10'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.10'
 
-
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
 
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

@@ -59,9 +59,9 @@ public class AddPrisonerActivity extends AppCompatActivity implements AddPrisone
     @OnClick(R.id.add_prisoner_activity_submit_button)
     public void addPrisoner(View view) {
         mAddPrisonerPresenter.addPrisoner(
-                mNameEditText.getText().toString(),
-                mAlphaEditText.getText().toString(),
-                mGammaEditText.getText().toString(),
+                mNameEditText.getText().toString().trim(),
+                mAlphaEditText.getText().toString().trim(),
+                mGammaEditText.getText().toString().trim(),
                 this
         );
     }

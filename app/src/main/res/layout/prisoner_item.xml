@@ -10,12 +10,14 @@
         style="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/dialogs"
         android:drawableLeft="@drawable/ic_action_person"
         android:drawableStart="@drawable/ic_action_person"
         android:padding="5dp"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="#ffffff" />
+        android:textColor="@color/colorPrimary" />
 </LinearLayout>

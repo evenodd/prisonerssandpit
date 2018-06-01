@@ -9,6 +9,7 @@ import shayne.even.prisonerssandpit.tasks.prisoner.GetAllPrisonersAsyncTask;
 import shayne.even.prisonerssandpit.tasks.prisoner.GetPrisonerAsyncTask;
 import shayne.even.prisonerssandpit.tasks.prisoner.OnGetPrisonersFinishedListener;
 import shayne.even.prisonerssandpit.tasks.prisoner.OnGetPrisonerFinishedListener;
+import shayne.even.prisonerssandpit.ui.presenters.listeners.NoEntriesListener;
 import shayne.even.prisonerssandpit.ui.views.PrisonerListView;
 import shayne.even.prisonerssandpit.ui.views.PrisonerRowView;
 
@@ -16,22 +17,27 @@ import shayne.even.prisonerssandpit.ui.views.PrisonerRowView;
  * Created by Shayne Even on 27/05/2018.
  */
 
-class PrisonerListPresenterImpl implements PrisonerListPresenter, OnGetPrisonersFinishedListener,
+abstract class PrisonerListPresenterImpl implements PrisonerListPresenter, OnGetPrisonersFinishedListener,
         OnGetPrisonerFinishedListener {
     protected ArrayList<Prisoner> mPrisoners;
     private PrisonerListView mView;
     protected Context mContext;
+    NoEntriesListener mListener;
 
-    public PrisonerListPresenterImpl(PrisonerListView view, Context context) {
+
+    public PrisonerListPresenterImpl(PrisonerListView view, Context context,
+                                     NoEntriesListener listener) {
         mPrisoners = new ArrayList<>();
         mView = view;
         mContext = context;
+        mListener = listener;
     }
 
     @Override
     public void onSuccess(ArrayList<Prisoner> prisoners) {
         mPrisoners = prisoners;
         mView.notifyPrisonerDataChanged();
+        onFinishGetAllPrisoners();
     }
 
     @Override
@@ -60,4 +66,8 @@ class PrisonerListPresenterImpl implements PrisonerListPresenter, OnGetPrisoners
         new GetPrisonerAsyncTask(mContext, this, id).execute();
     }
 
+    @Override
+    public void onFinishGetAllPrisoners() {
+        if (getPrisonerRowCount() == 0 && mListener != null) mListener.onNoEntries();
+    }
 }

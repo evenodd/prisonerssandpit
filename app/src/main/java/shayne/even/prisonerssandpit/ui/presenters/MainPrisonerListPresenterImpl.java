@@ -2,6 +2,7 @@ package shayne.even.prisonerssandpit.ui.presenters;
 
 import android.content.Context;
 
+import shayne.even.prisonerssandpit.ui.presenters.listeners.NoEntriesListener;
 import shayne.even.prisonerssandpit.ui.views.MainPrisonerRowView;
 import shayne.even.prisonerssandpit.ui.views.PrisonerListView;
 
@@ -12,8 +13,9 @@ import shayne.even.prisonerssandpit.ui.views.PrisonerListView;
 public class MainPrisonerListPresenterImpl extends PrisonerListPresenterImpl implements MainPrisonerListPresenter {
 
 
-    public MainPrisonerListPresenterImpl(PrisonerListView view, Context context) {
-        super(view, context);
+    public MainPrisonerListPresenterImpl(PrisonerListView view, Context context,
+                                         NoEntriesListener listener) {
+        super(view, context, listener);
     }
 
     @Override

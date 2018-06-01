@@ -1,17 +1,16 @@
 package shayne.even.prisonerssandpit.ui.views;
 
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
+import java.util.List;
+
 /**
  * Created by Shayne Even on 13/05/2018.
  */
 
 public interface PrisonerHomeView {
     void setName(String name);
-
-    void setBetrayScore(String score);
-
-    void setCoopScore(String score);
-
-    void setTitFirTatScore(String score);
 
     long getPrisonerId();
 
@@ -22,4 +21,10 @@ public interface PrisonerHomeView {
     void startTestingActivity(long prisonerId, long uid);
 
     void setStatus(String status);
+
+    void setPerformanceChartData(List<String> xAxisLabels, BarDataSet... scores);
+
+    void setAlphaText(String s);
+
+    void setGammaText(String s);
 }

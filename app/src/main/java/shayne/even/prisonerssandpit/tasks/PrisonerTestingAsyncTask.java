@@ -36,29 +36,17 @@ public class PrisonerTestingAsyncTask extends BaseAsyncTask<Void, TesterResult, 
         prisonersDilemma.runEpisode(
                 new PrisonerAgentHolder(mPrisoner, mContext.get()) {
                     @Override
-                    public void onPreIteration(EnvironmentState environmentState) {
-                        super.onPreEpisode(environmentState);
-                        testerResult[0].setPrisonerAction(
-                                mPrisoner.getAction(mContext.get(), environmentState.getState()));
-                    }
-
-                    @Override
                     public void onPostIteration(EnvironmentState environmentState, int reward) {
                         super.onPostIteration(environmentState, reward);
+                        testerResult[0].setPrisonerAction(getLastAction());
                         testerResult[0].addPrisonerScore(reward);
                     }
                 },
                 new PrisonerAgentHolder(mTester, mContext.get()) {
                     @Override
-                    public void onPreIteration(EnvironmentState environmentState) {
-                        super.onPreEpisode(environmentState);
-                        testerResult[0].setTesterAction(
-                                mPrisoner.getAction(mContext.get(), environmentState.getState()));
-                    }
-
-                    @Override
                     public void onPostIteration(EnvironmentState environmentState, int reward) {
                         super.onPostIteration(environmentState, reward);
+                        testerResult[0].setTesterAction(getLastAction());
                         testerResult[0].addTesterScore(reward);
                         publishProgress(testerResult[0]);
                         testerResult[0] = new TesterResult();

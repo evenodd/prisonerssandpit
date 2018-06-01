@@ -17,6 +17,7 @@ public class PrisonerAgentHolder implements PrisonersDilemma.Agent {
     private final Prisoner mPrisoner;
     private final Context mContext;
     private ArrayList<Integer> rewards;
+    private int mLastAction;
 
     public PrisonerAgentHolder(Prisoner prisoner, Context context) {
         mPrisoner = prisoner;
@@ -25,7 +26,12 @@ public class PrisonerAgentHolder implements PrisonersDilemma.Agent {
 
     @Override
     public int getAction(int state) {
-        return mPrisoner.getAction(mContext, state);
+        mLastAction = mPrisoner.getAction(mContext, state);
+        return mLastAction;
+    }
+
+    public int getLastAction() {
+        return mLastAction;
     }
 
     @Override

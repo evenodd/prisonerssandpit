@@ -3,6 +3,8 @@ package shayne.even.prisonerssandpit.ui.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.main_activity_prisoner_recycler_view)
     RecyclerView mPrisonerRecyclerView;
 
+    @BindView(R.id.fab)
+    FloatingActionButton mAddPrisonerFab;
+
     MainPresenter mPresenter;
 
     @Override
@@ -39,7 +47,28 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mPresenter = new MainPresenterImpl(this);
 
         mPrisonerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mPrisonerRecyclerView.setAdapter(new MainPrisonerAdapter(this));
+        mPrisonerRecyclerView.setAdapter(new MainPrisonerAdapter(
+                this,
+                mPresenter.getNoEntriesListener()
+        ));
+    }
+
+    @Override
+    public void showAddPrisonerTapTarget() {
+        TapTargetView.showFor(this,
+                TapTarget.forView(
+                        mAddPrisonerFab,
+                        getString(R.string.add_prisoner_fab_tap_target_title),
+                        getString(R.string.add_prisoner_fab_tap_target_desc)
+                )
+                        .titleTextColor(R.color.textPrimary)
+                        .descriptionTextColor(R.color.textSecondary)
+                        .targetCircleColor(R.color.colorAccent)
+                        .outerCircleColor(R.color.colorPrimary)
+                        .targetRadius(60)
+                        .icon(ContextCompat
+                                .getDrawable(this,R.drawable.ic_action_add_person))
+        );
     }
 
     @Override

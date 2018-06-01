@@ -1,12 +1,37 @@
 package shayne.even.prisonerssandpit.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ViewPortHandler;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,8 +43,7 @@ import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenterImpl;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerSelectPresenter;
 import shayne.even.prisonerssandpit.ui.views.PrisonerHomeView;
 
-public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerHomeView,
-        PrisonerSelectPresenter.OnSelectListener {
+public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerHomeView {
 
     public static final String PRISONER_ID = "prisoner_id_extra";
     @BindView(R.id.prisoner_home_status_text_view)
@@ -28,38 +52,23 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
     @BindView(R.id.prisoner_home_activity_prisoner_name)
     TextView mNameTextView;
 
-    @BindView(R.id.prisoner_home_betray_score)
-    TextView mBetrayScoreTextView;
-
-    @BindView(R.id.prisoner_home_coop_score)
-    TextView mCoopScoreTextView;
-
-    @BindView(R.id.prisoner_home_titfortat_score)
-    TextView mTitForTatScoreTextView;
-
     @BindView(R.id.navigation)
     BottomNavigationView mBottomNavigationView;
+
+    @BindView(R.id.performance_bar_chart)
+    HorizontalBarChart mPerformanceBarChart;
+
+    @BindView(R.id.prisoner_home_alpha_value)
+    TextView mAlphaTextView;
+
+    @BindView(R.id.prisoner_home_gamma_value)
+    TextView mGammaTextView;
 
     PrisonerHomePresenter mPresenter;
 
     @Override
     public void setName(String name) {
         mNameTextView.setText(name);
-    }
-
-    @Override
-    public void setBetrayScore(String score) {
-        mBetrayScoreTextView.setText(score);
-    }
-
-    @Override
-    public void setCoopScore(String score) {
-        mCoopScoreTextView.setText(score);
-    }
-
-    @Override
-    public void setTitFirTatScore(String score) {
-        mTitForTatScoreTextView.setText(score);
     }
 
     @Override
@@ -101,7 +110,7 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
         PrisonerSelectDialog prisonerSelectDialog = new PrisonerSelectDialog(
                 this,
                 excludedPrisoner,
-                this
+                mPresenter.getOnSelectListener()
         );
         prisonerSelectDialog.setTitle(R.string.select_tester_dialog_title);
         prisonerSelectDialog.show();
@@ -128,7 +137,69 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
     }
 
     @Override
-    public void onSelect(Prisoner tester) {
-        mPresenter.handleTesterSelected(tester);
+    public void setPerformanceChartData(final List<String> xAxisLabels, BarDataSet... scores) {
+        mPerformanceBarChart.animateY(1000);
+        mPerformanceBarChart.getDescription().setEnabled(false);
+
+        mPerformanceBarChart.setMaxVisibleValueCount(4);
+        mPerformanceBarChart.setPinchZoom(false);
+        mPerformanceBarChart.setDrawGridBackground(false);
+
+        XAxis xAxis = mPerformanceBarChart.getXAxis();
+
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setAxisLineColor(ContextCompat.getColor(this, R.color.textSecondary));
+        xAxis.setGridColor(ContextCompat.getColor(this, R.color.textSecondary));
+        xAxis.setTextColor(ContextCompat.getColor(this, R.color.textSecondary));
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                try {
+                    return xAxisLabels.get((int) value);
+                } catch (IndexOutOfBoundsException e) {
+                    return "";
+                }
+            }
+        });
+
+        mPerformanceBarChart.getAxisLeft().setDrawAxisLine(true);
+        mPerformanceBarChart.getAxisLeft().setDrawGridLines(false);
+        mPerformanceBarChart.getAxisLeft().setAxisMinimum(0f);
+        mPerformanceBarChart.getAxisLeft().setAxisMaximum(70f);
+
+        mPerformanceBarChart.getLegend().setEnabled(false);
+        mPerformanceBarChart.setDoubleTapToZoomEnabled(false);
+        mPerformanceBarChart.setPinchZoom(false);
+
+
+        int[] colours = {Color.GREEN, Color.RED, Color.BLUE};
+        int colourCounter = 0;
+        for (BarDataSet score : scores) {
+            score.setColor(colours[colourCounter]);
+            colourCounter = (colourCounter + 1) % colours.length;
+            score.setDrawValues(true);
+        }
+
+        BarData data = new BarData(scores);
+        data.setValueTextSize(10);
+        data.setValueTextColor(R.color.textPrimary);
+        data.setDrawValues(true);
+        data.setValueFormatter(new DefaultValueFormatter(0));
+
+        mPerformanceBarChart.setData(data);
+        mPerformanceBarChart.invalidate();
+    }
+
+    @Override
+    public void setAlphaText(String s) {
+        mAlphaTextView.setText(s);
+    }
+
+    @Override
+    public void setGammaText(String s) {
+        mGammaTextView.setText(s);
     }
 }

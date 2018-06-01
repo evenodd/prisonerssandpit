@@ -12,6 +12,7 @@ import shayne.even.prisonerssandpit.R;
 import shayne.even.prisonerssandpit.ui.activities.PrisonerHomeActivity;
 import shayne.even.prisonerssandpit.ui.presenters.MainPrisonerListPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.MainPrisonerListPresenterImpl;
+import shayne.even.prisonerssandpit.ui.presenters.listeners.NoEntriesListener;
 import shayne.even.prisonerssandpit.ui.views.MainPrisonerRowView;
 
 /**
@@ -21,9 +22,9 @@ public class MainPrisonerAdapter extends PrisonerAdapter {
 
     private final MainPrisonerListPresenter mPresenter;
 
-    public MainPrisonerAdapter(Context context) {
+    public MainPrisonerAdapter(Context context, NoEntriesListener listener) {
         super(context);
-        mPresenter = new MainPrisonerListPresenterImpl(this, mContext);
+        mPresenter = new MainPrisonerListPresenterImpl(this, mContext, listener);
         mPresenter.getAllPrisoners();
     }
 

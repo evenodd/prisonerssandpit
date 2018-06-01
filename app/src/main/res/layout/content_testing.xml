@@ -53,7 +53,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/scores_footer"
         app:layout_constraintTop_toBottomOf="@+id/tester_heading_text"
-        android:layout_weight="2" />
+        android:layout_weight="2"
+        android:background="@color/dialogs"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/scores_footer"

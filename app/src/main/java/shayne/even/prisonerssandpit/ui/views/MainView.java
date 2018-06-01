@@ -5,6 +5,8 @@ package shayne.even.prisonerssandpit.ui.views;
  */
 
 public interface MainView {
+    void showAddPrisonerTapTarget();
+
     boolean okResultCode(int resultCode);
 
     void navigateToAddPrisonerView();

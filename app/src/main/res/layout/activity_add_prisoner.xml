@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
+    <TextView
+        android:id="@+id/add_prisoner_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:text="Add a Prisoner Agent"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:background="@color/colorPrimary"/>
 
     <TableLayout
+        android:layout_below="@id/add_prisoner_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:shrinkColumns="0"
-        android:padding="20dp">
+        android:padding="20dp" >
         <TableRow
             android:layout_marginTop="10dp">
             <TextView
@@ -16,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_prisoner_name_label"
-                style="@style/Base.TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
             <EditText
@@ -34,8 +45,7 @@
                 android:id="@+id/alpha_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alpha:"
-                style="@style/Base.TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
             <EditText
@@ -54,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_prisoner_gamma_label"
-                style="@style/Base.TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
             <EditText
@@ -76,7 +86,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:text="@string/submit_button_text"
-        android:theme="@style/AppTheme"/>
+        android:theme="@style/AppTheme.Button"/>
     <ProgressBar
         android:id="@+id/add_prisoner_activity_progress_bar"
         android:layout_width="wrap_content"

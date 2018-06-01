@@ -14,4 +14,6 @@ public interface PrisonerListPresenter {
     int getPrisonerRowCount();
 
     void appendPrisoner(long id);
+
+    void onFinishGetAllPrisoners();
 }

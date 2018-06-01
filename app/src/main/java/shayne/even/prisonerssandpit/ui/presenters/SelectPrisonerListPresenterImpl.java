@@ -16,7 +16,7 @@ public class SelectPrisonerListPresenterImpl extends PrisonerListPresenterImpl
     private final PrisonerSelectPresenter.OnSelectListener mListener;
 
     public SelectPrisonerListPresenterImpl(PrisonerListView view, Context context, PrisonerSelectPresenter.OnSelectListener listener) {
-        super(view, context);
+        super(view, context, null);
         mListener = listener;
     }
 

@@ -1,13 +1,17 @@
 package shayne.even.prisonerssandpit.ui.presenters;
 
+import shayne.even.prisonerssandpit.ui.presenters.listeners.NoEntriesListener;
+
 /**
  * Created by Shayne Even on 14/05/2018.
  */
 
 public interface MainPresenter {
-    public void startAddAddPrisonerActivity();
+    void startAddAddPrisonerActivity();
 
-    public void handleAddPrisonerResult(int resultCode, long prisonerId);
+    void handleAddPrisonerResult(int resultCode, long prisonerId);
 
-    public void navigateToAddPrisonerView();
+    void navigateToAddPrisonerView();
+
+    NoEntriesListener getNoEntriesListener();
 }

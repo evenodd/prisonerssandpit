@@ -15,5 +15,5 @@ public interface PrisonerHomePresenter {
 
     void navigateToPrisonerTester();
 
-    void handleTesterSelected(Prisoner tester);
+    PrisonerSelectPresenter.OnSelectListener getOnSelectListener();
 }
