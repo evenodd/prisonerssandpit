@@ -1,5 +1,7 @@
 package shayne.even.prisonerssandpit.tasks;
 
+import android.arch.lifecycle.LiveData;
+
 import shayne.even.prisonerssandpit.models.PrisonerStatus;
 
 /**
@@ -7,5 +9,5 @@ import shayne.even.prisonerssandpit.models.PrisonerStatus;
  */
 
 public interface OnGetStatusListener {
-    void onSuccess(PrisonerStatus prisonerStatus);
+    void onSuccess(LiveData<PrisonerStatus> prisonerStatus);
 }

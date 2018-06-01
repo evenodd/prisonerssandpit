@@ -1,6 +1,11 @@
 package shayne.even.prisonerssandpit.ui.presenters;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -36,14 +41,20 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
     private Context mContext;
     private Prisoner mPrisoner;
 
+
     public PrisonerHomePresenterImpl(PrisonerHomeView view, Context context) {
         mView = view;
         mContext = context;
     }
 
     @Override
-    public void onSuccess(PrisonerStatus prisonerStatus) {
-        mView.setStatus(prisonerStatus.getStatus());
+    public void onSuccess(LiveData<PrisonerStatus> prisonerStatus) {
+        prisonerStatus.observeForever( new Observer<PrisonerStatus>() {
+            @Override
+            public void onChanged(@Nullable PrisonerStatus prisonerStatus) {
+                if (prisonerStatus != null) mView.setStatus(prisonerStatus.getStatus());
+            }
+        });
     }
 
     @Override
@@ -85,7 +96,7 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
         new GetPrisonerAsyncTask(mContext, this, mView.getPrisonerId()).execute();
     }
 
-    private void getStatus(long prisonerId) {
+    public void getStatus(long prisonerId) {
         new GetPrisonerStatusAsyncTask(mContext, this, prisonerId).execute();
     }
 

@@ -133,7 +133,7 @@ public class AgentTrainerService extends IntentService {
                         getString(R.string.completed_training_notification_content),
                         prisoner.getName()
                 ))
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentIntent(PendingIntent.getActivity(this, 0, intent, 0))
                 .setAutoCancel(true);
         NotificationManagerCompat.from(this).notify((int) prisoner.getUid(), builder.build());

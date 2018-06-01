@@ -124,8 +124,8 @@
     <string name="completed_training_notification_content">%s has finished training and is ready to be tested</string>
     <string name="learning_status">Learning</string>
     <string name="prisoner_home_default_status">...</string>
-    <string name="add_prisoner_fab_tap_target_title">Add a Prisoner Agent</string>
-    <string name="add_prisoner_fab_tap_target_desc">Click this to create your first Prisoner Agent</string>
+    <string name="add_prisoner_fab_tap_target_title">Welcome to Prisoner\'s Sandpit</string>
+    <string name="add_prisoner_fab_tap_target_desc">Click here to create your first Prisoner Agent</string>
     <string name="prisoner_home_alpha_label">Alpha:</string>
     <string name="prisoner_home_default_value">..</string>
     <string name="prisoner_home_gamma_label">Gamma:</string>

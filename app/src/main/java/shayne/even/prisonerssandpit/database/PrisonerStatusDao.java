@@ -1,5 +1,6 @@
 package shayne.even.prisonerssandpit.database;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -17,7 +18,7 @@ public interface PrisonerStatusDao {
     long insert(PrisonerStatus prisonerStatus);
 
     @Query("SELECT * FROM prisoner_status WHERE prisoner = :prisoner")
-    PrisonerStatus getPrisonerStatus(long prisoner);
+    LiveData<PrisonerStatus> getPrisonerStatus(long prisoner);
 
     @Query("UPDATE prisoner_status " +
             "SET status = :status " +

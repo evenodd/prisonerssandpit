@@ -1,5 +1,6 @@
 package shayne.even.prisonerssandpit.tasks;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -12,7 +13,8 @@ import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenterImpl;
  * Created by Shayne Even on 28/05/2018.
  */
 
-public class GetPrisonerStatusAsyncTask extends BaseAsyncTask<Void, Void, PrisonerStatus> {
+public class GetPrisonerStatusAsyncTask
+        extends BaseAsyncTask<Void, Void, LiveData<PrisonerStatus>> {
 
     private final OnGetStatusListener mListener;
     private final long mPrisoner;
@@ -25,12 +27,12 @@ public class GetPrisonerStatusAsyncTask extends BaseAsyncTask<Void, Void, Prison
     }
 
     @Override
-    protected PrisonerStatus doInBackground(Void... voids) {
+    protected LiveData<PrisonerStatus> doInBackground(Void... voids) {
         return getTaskComponent().getAppDatabase().prisonerStatusDao().getPrisonerStatus(mPrisoner);
     }
 
     @Override
-    protected void onPostExecute(PrisonerStatus prisonerStatus) {
+    protected void onPostExecute(LiveData<PrisonerStatus> prisonerStatus) {
         super.onPostExecute(prisonerStatus);
         mListener.onSuccess(prisonerStatus);
     }

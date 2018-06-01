@@ -1,6 +1,9 @@
 package shayne.even.prisonerssandpit.ui.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -185,7 +188,7 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
 
         BarData data = new BarData(scores);
         data.setValueTextSize(10);
-        data.setValueTextColor(R.color.textPrimary);
+        data.setValueTextColor(ContextCompat.getColor(this, R.color.textSecondary));
         data.setDrawValues(true);
         data.setValueFormatter(new DefaultValueFormatter(0));
 

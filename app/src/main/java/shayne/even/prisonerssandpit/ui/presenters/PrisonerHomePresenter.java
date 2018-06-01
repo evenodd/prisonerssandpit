@@ -16,4 +16,6 @@ public interface PrisonerHomePresenter {
     void navigateToPrisonerTester();
 
     PrisonerSelectPresenter.OnSelectListener getOnSelectListener();
+
+    void getStatus(long prisonerId);
 }
