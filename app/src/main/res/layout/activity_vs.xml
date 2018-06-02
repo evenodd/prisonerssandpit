@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vs_activity_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="shayne.even.prisonerssandpit.ui.activities.VsActivity">
+
+    <TextView
+        android:id="@+id/vs_activity_heading"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.skyfishjy.library.RippleBackground
+        android:id="@+id/round_circle"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rb_color="@color/colorAccent"
+        app:rb_duration="2000"
+        app:rb_radius="60dp"
+        app:rb_rippleAmount="2"
+        app:rb_scale="1.5"
+        tools:layout_editor_absoluteX="206dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/accented_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <TextView
+                android:id="@+id/vs_activity_round_label"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vs_activity_round_label"
+                app:layout_constraintBottom_toTopOf="@id/vs_activity_round_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/vs_activity_round_number"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vs_activity_default_round"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vs_activity_round_label" />
+        </android.support.constraint.ConstraintLayout>
+    </com.skyfishjy.library.RippleBackground>
+
+    <TextView
+        android:id="@+id/next_round_text_view"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:text="Next Round"
+        android:background="@drawable/ic_action_forward"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/round_circle"
+        app:layout_constraintBottom_toBottomOf="@id/round_circle"
+        android:layout_marginRight="20dp"
+        android:gravity="bottom"
+        android:visibility="gone"
+        android:layout_marginEnd="20dp" />
+
+    <Button
+        android:id="@+id/cooperate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vs_activity_cooperate_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/betray_button"
+        app:layout_constraintTop_toBottomOf="@id/round_circle"/>
+
+    <Button
+        android:id="@+id/betray_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vs_activity_betray_btn"
+        app:layout_constraintLeft_toRightOf="@id/cooperate_button"
+        app:layout_constraintTop_toBottomOf="@id/round_circle"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/opponents_move_label"
+        android:layout_marginTop="30dp"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/opponent_s_move_label"
+        app:layout_constraintTop_toBottomOf="@id/cooperate_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/opponents_move_text_view"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:text="@string/default_opponents_action_label"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/opponents_move_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/dialog_rounded_rectangle"/>
+
+    <ProgressBar
+        android:id="@+id/opponent_move_progress_bar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toTopOf="@id/opponents_move_text_view"
+        app:layout_constraintLeft_toLeftOf="@id/opponents_move_text_view"
+        app:layout_constraintRight_toRightOf="@id/opponents_move_text_view"
+        app:layout_constraintBottom_toBottomOf="@id/opponents_move_text_view"
+        android:visibility="invisible" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/scores_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/your_score_heading"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/your_score_label"
+            app:layout_constraintBottom_toTopOf="@id/your_score"
+            app:layout_constraintEnd_toStartOf="@id/opponent_score_heading"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/opponent_score_heading"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/opponent_s_score_label"
+            app:layout_constraintBottom_toTopOf="@id/opponent_score"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/your_score_heading" />
+
+        <TextView
+            android:id="@+id/your_score"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textAlignment="center"
+            android:text="@string/default_score"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/opponent_score"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/opponent_score"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textAlignment="center"
+            android:text="@string/default_score"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/your_score" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

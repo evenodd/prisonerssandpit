@@ -13,7 +13,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.Button" parent="@android:style/Widget.Button" >
+    <style name="AppTheme.Button" parent="@android:style/Widget.Button">
         <item name="android:textColor">@color/textPrimary</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>

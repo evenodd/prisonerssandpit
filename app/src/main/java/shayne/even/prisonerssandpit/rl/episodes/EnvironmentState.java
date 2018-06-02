@@ -9,6 +9,7 @@ import android.util.Pair;
 public interface EnvironmentState {
 
 
+
     boolean reachedEnd();
 
     int getState();

@@ -27,4 +27,6 @@ public interface PrisonerHomeView {
     void setAlphaText(String s);
 
     void setGammaText(String s);
+
+    void navigateToVs(long prisonerId);
 }

@@ -129,4 +129,15 @@
     <string name="prisoner_home_alpha_label">Alpha:</string>
     <string name="prisoner_home_default_value">..</string>
     <string name="prisoner_home_gamma_label">Gamma:</string>
+    <string name="title_activity_vs">VsActivity</string>
+    <string name="vs_action_title">Vs</string>
+    <string name="vs_activity_header_format">Vs %s</string>
+    <string name="vs_activity_round_label">Round</string>
+    <string name="vs_activity_default_round">1</string>
+    <string name="vs_activity_cooperate_btn">Cooperate</string>
+    <string name="vs_activity_betray_btn">Betray</string>
+    <string name="opponent_s_move_label">Opponent\'s Move</string>
+    <string name="default_opponents_action_label">\???</string>
+    <string name="your_score_label">Your Score</string>
+    <string name="opponent_s_score_label">Opponent\'s Score</string>
 </resources>

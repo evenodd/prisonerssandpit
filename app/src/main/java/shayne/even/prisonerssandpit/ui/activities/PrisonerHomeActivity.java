@@ -1,9 +1,6 @@
 package shayne.even.prisonerssandpit.ui.activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,37 +10,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import shayne.even.prisonerssandpit.R;
-import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.ui.dialogs.PrisonerSelectDialog;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenter;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenterImpl;
-import shayne.even.prisonerssandpit.ui.presenters.PrisonerSelectPresenter;
 import shayne.even.prisonerssandpit.ui.views.PrisonerHomeView;
 
 public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerHomeView {
@@ -103,6 +85,8 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
                 case R.id.navigation_test :
                     mPresenter.navigateToPrisonerTester();
                     return true;
+                case R.id.navigation_vs:
+                    mPresenter.navigateToVs();
             }
             return false;
         }
@@ -204,5 +188,13 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
     @Override
     public void setGammaText(String s) {
         mGammaTextView.setText(s);
+    }
+
+    @Override
+    public void navigateToVs(long prisonerId) {
+        startActivity(
+                new Intent(this, VsActivity.class)
+                        .putExtra(VsActivity.PRISONER_ID_EXTRA, prisonerId)
+        );
     }
 }

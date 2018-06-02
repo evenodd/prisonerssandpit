@@ -101,6 +101,11 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
     }
 
     @Override
+    public void navigateToVs() {
+        mView.navigateToVs(mView.getPrisonerId());
+    }
+
+    @Override
     public void getPerformanceScore(long prisonerId) {
         new GetPerformanceScoreAsyncTask(mContext, this, prisonerId).execute();
     }

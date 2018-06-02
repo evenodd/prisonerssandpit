@@ -1,5 +1,7 @@
 package shayne.even.prisonerssandpit.rl.episodes;
 
+import android.arch.persistence.room.Entity;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
 
@@ -8,7 +10,6 @@ import android.util.Pair;
  */
 
 public class PrisonersDilemma implements EnvironmentState {
-    private static final String LOG_TAG = "seven";
     public static final int ITERATIONS = 10;
     public static final int STAY = 0;
     public static final int BETRAY = 1;
@@ -26,24 +27,8 @@ public class PrisonersDilemma implements EnvironmentState {
         mState = 0;
     }
 
-    private void updateState(int action, int othersAction) {
-        int state = mState;
-
+    protected void updateState(int action, int othersAction) {
         mState = (mState * 4) + (action << 1) + othersAction + 1;
-
-//        Log.v(LOG_TAG, String.format(
-//                "From state %10d to %10d: %d(%c), %d(%c) Rewards: %d, %d",
-//                state,
-//                mState,
-//                action,
-//                action == STAY ? 'S' : 'B',
-//                othersAction,
-//                othersAction == STAY ? 'S' : 'B',
-//                getRewards().first,
-//                getRewards().second
-//            )
-//        );
-
     }
 
     @Override
@@ -65,7 +50,7 @@ public class PrisonersDilemma implements EnvironmentState {
         return mState;
     }
 
-    private Pair<Integer, Integer> getRewards() {
+    protected Pair<Integer, Integer> getRewards() {
         if (mState == 0) return new Pair<>(0, 0);
         return new Pair<>(
                 REWARD_MATRIX[(mState - 1) % 4][0],
