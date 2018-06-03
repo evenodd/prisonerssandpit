@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 /**
- * Created by Shayne Even on 1/05/2018.
+ * Data model for the rows in a Q table
  */
 @Entity(tableName = "q_table_row")
 public class QTableRow {
@@ -28,6 +28,13 @@ public class QTableRow {
     @ColumnInfo(name = "stay_q_value")
     private double mStayQValue;
 
+    /**
+     * Creates a new Q table row.
+     * @param qTable the id of the Q table the row belongs to
+     * @param state the state the row is for
+     * @param betrayQValue the q value for performing a betray action for the given state
+     * @param stayQValue the q value for performing a stay action for the given state
+     */
     public QTableRow(long qTable, int state, double betrayQValue, double stayQValue) {
         mQTable = qTable;
         mState = state;

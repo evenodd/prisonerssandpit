@@ -11,7 +11,7 @@ import java.sql.Date;
 import static shayne.even.prisonerssandpit.models.PrisonerPerformanceScore.PRISONER;
 
 /**
- * Created by Shayne Even on 7/05/2018.
+ * Data model that holds the performance scores of a Prisoner Agent
  */
 
 @Entity(tableName = "prisoner_performance_score",
@@ -45,6 +45,14 @@ public class PrisonerPerformanceScore {
     @ColumnInfo(name = "created_at")
     private Date mCreatedAt;
 
+    /**
+     * Creates a new PrisonerPerformanceScore model
+     * @param prisoner the id of the prisoner the scores are for
+     * @param coopScore the score the prisoner got against a cooperative prisoner agent
+     * @param betrayScore the score the prisoner got against a betraying prisoner agent
+     * @param titForTatScore the score the prisoner got against an agent using a tit for tat
+     *                       strategy
+     */
     public PrisonerPerformanceScore(long prisoner, int coopScore, int betrayScore,
                                     int titForTatScore) {
         mPrisoner = prisoner;

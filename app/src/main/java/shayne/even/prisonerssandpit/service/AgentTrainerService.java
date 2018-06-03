@@ -25,6 +25,11 @@ import shayne.even.prisonerssandpit.ui.presenters.TrainerSettingsPresenter.Train
 
 import static shayne.even.prisonerssandpit.PrisonersSandpitApp.CHANNEL_ID;
 
+/**
+ * Service to train prisoner agents.
+ *
+ */
+
 public class AgentTrainerService extends IntentService {
 
     public static final String PRISONER_ID_EXTRA = "prisoner_id_extra";
@@ -139,7 +144,7 @@ public class AgentTrainerService extends IntentService {
         NotificationManagerCompat.from(this).notify((int) prisoner.getUid(), builder.build());
     }
 
-    public ServiceComponent getServiceComponent() {
+    private ServiceComponent getServiceComponent() {
         if (mServiceComponent == null) {
             mServiceComponent = DaggerServiceComponent.builder()
                     .applicationComponent(

@@ -10,17 +10,16 @@ import shayne.even.prisonerssandpit.models.QTable;
 import shayne.even.prisonerssandpit.models.QTableRow;
 
 /**
- * Created by Shayne Even on 2/05/2018.
+ * Data Access Object used to interact with Q Table Models
  */
 
 @Dao
 public interface QTableDao {
+    /**
+     * Inserts a new Model into the q_table table
+     * @param qTable the model to insert
+     * @return the new id of the Q Table
+     */
     @Insert
     long insertQTable(QTable qTable);
-
-    @Insert
-    long[] insertQTableRows(List<QTableRow> qTableRows);
-
-    @Update
-    void updateQTableRows(List<QTableRow> qTableRows);
 }

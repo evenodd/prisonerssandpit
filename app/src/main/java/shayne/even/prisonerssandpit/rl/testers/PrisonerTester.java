@@ -8,14 +8,20 @@ import shayne.even.prisonerssandpit.rl.agents.BetrayingAgent;
 import shayne.even.prisonerssandpit.rl.agents.CooperativeAgent;
 import shayne.even.prisonerssandpit.rl.agents.PrisonerAgentHolder;
 import shayne.even.prisonerssandpit.rl.agents.TitForTatAgent;
-import shayne.even.prisonerssandpit.rl.episodes.PrisonersDilemma;
+import shayne.even.prisonerssandpit.rl.environments.PrisonersDilemma;
 
 /**
- * Created by Shayne Even on 20/05/2018.
+ * Class that tests and records a Prisoner model's performance
  */
 
 public class PrisonerTester {
 
+    /**
+     * Tests the passed prisoner against the static strategies and returns the results.
+     * @param prisoner the prisoner to test
+     * @param context the app context
+     * @return the performance of the prisoner agent
+     */
     public PrisonerPerformanceScore generatePerformanceScores(Prisoner prisoner, Context context) {
         PrisonersDilemma prisonersDilemma = new PrisonersDilemma();
         PrisonerAgentHolder prisonerAgentHolder = new PrisonerAgentHolder(prisoner, context);

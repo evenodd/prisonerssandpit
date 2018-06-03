@@ -1,9 +1,12 @@
 package shayne.even.prisonerssandpit.ui.presenters.listeners;
 
 /**
- * Created by Shayne Even on 1/06/2018.
+ * Listener that provides a handler for when a list doesn't contain entries
  */
 
 public interface NoEntriesListener {
+    /**
+     * Handler for when a list doesn't contain entries
+     */
     void onNoEntries();
 }

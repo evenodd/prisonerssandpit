@@ -7,7 +7,7 @@ import shayne.even.prisonerssandpit.ui.views.PrisonerListView;
 import shayne.even.prisonerssandpit.ui.views.PrisonerRowView;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * Implements SelectPrisonerListPresenter
  */
 
 public class SelectPrisonerListPresenterImpl extends PrisonerListPresenterImpl
@@ -15,11 +15,17 @@ public class SelectPrisonerListPresenterImpl extends PrisonerListPresenterImpl
 
     private final PrisonerSelectPresenter.OnSelectListener mListener;
 
-    public SelectPrisonerListPresenterImpl(PrisonerListView view, Context context, PrisonerSelectPresenter.OnSelectListener listener) {
+    /**
+     * Creates a SelectPrisonerListPresenterImpl
+     * @param view the view the presenter is for
+     * @param context the context of the view
+     * @param listener the handler for when a prisoner is selected
+     */
+    public SelectPrisonerListPresenterImpl(PrisonerListView view, Context context,
+                                           PrisonerSelectPresenter.OnSelectListener listener) {
         super(view, context, null);
         mListener = listener;
     }
-
 
     @Override
     public void getAllPrisonersExcept(long excludedPrisoner) {

@@ -7,8 +7,7 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
- * Created by Shayne Even on 28/05/2018.
- */
+ * Data model that holds the status of a prisoner agent*/
 
 @Entity(
         tableName = "prisoner_status",
@@ -33,6 +32,11 @@ public class PrisonerStatus {
     @ColumnInfo(name = "status")
     private String mStatus;
 
+    /**
+     * Creates a PrisonerStatus data model.
+     * @param prisoner the id of the prisoner the status is for
+     * @param status the status of the prisoner
+     */
     public PrisonerStatus(long prisoner, String status) {
         mPrisoner = prisoner;
         mStatus = status;

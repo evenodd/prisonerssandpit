@@ -11,13 +11,19 @@ import shayne.even.prisonerssandpit.tasks.prisoner.OnGetPrisonersFinishedListene
 import shayne.even.prisonerssandpit.ui.presenters.SelectPrisonerListPresenterImpl;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * Queries the database for a list of prisoners excluding the specified prisoner
  */
 
 public class GetPrisonersExceptAsyncTask extends BaseAsyncTask<Void, Void, ArrayList<Prisoner>>  {
     private final OnGetPrisonersFinishedListener mListener;
     private final long mExcludedPrisoner;
 
+    /**
+     * Creates a GetPrisonersExceptAsyncTask
+     * @param context context of the application
+     * @param listener the entity that provides the callback function
+     * @param excludedPrisoner the id of the prisoner to exclude from the list
+     */
     public GetPrisonersExceptAsyncTask(Context context, OnGetPrisonersFinishedListener listener,
                                        long excludedPrisoner) {
         super(new WeakReference<>(context));

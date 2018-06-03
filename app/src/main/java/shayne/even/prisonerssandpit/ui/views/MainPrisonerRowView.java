@@ -1,9 +1,13 @@
 package shayne.even.prisonerssandpit.ui.views;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * View for items in the main prisoner list
  */
 
 public interface MainPrisonerRowView extends PrisonerRowView{
+    /**
+     * Opens the Home View for the specified prisoner
+     * @param prisoner the id of the prisoner
+     */
     void navigateToPrisonerHome(long prisoner);
 }

@@ -11,7 +11,7 @@ import shayne.even.prisonerssandpit.models.PrisonerPerformanceScore;
 import shayne.even.prisonerssandpit.tasks.BaseAsyncTask;
 
 /**
- * Created by Shayne Even on 13/05/2018.
+ * Retrieves the performance score of a prisoner from the database as an async task
  */
 
 public class GetPerformanceScoreAsyncTask extends BaseAsyncTask<Void, Void, PrisonerPerformanceScore>{
@@ -19,6 +19,12 @@ public class GetPerformanceScoreAsyncTask extends BaseAsyncTask<Void, Void, Pris
     private final OnGetPerformanceScoreListener mListener;
     private final long mPrisonerId;
 
+    /**
+     * Creates a GetPerformanceScoreAsyncTask
+     * @param context context of the application
+     * @param listener listener to handle callback on post execution
+     * @param prisonerId the id of the prisoner model that the score is of
+     */
     public GetPerformanceScoreAsyncTask(Context context, OnGetPerformanceScoreListener listener,
                                         long prisonerId) {
         super(new WeakReference<>(context));
@@ -26,6 +32,11 @@ public class GetPerformanceScoreAsyncTask extends BaseAsyncTask<Void, Void, Pris
         mPrisonerId = prisonerId;
     }
 
+    /**
+     * Queries the database for the prisoner's performance scores
+     * @param voids
+     * @return the performance scores for the prisoner
+     */
     @Override
     protected PrisonerPerformanceScore doInBackground(Void... voids) {
         Log.i("seven", this.toString());

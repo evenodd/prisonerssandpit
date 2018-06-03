@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Shayne Even on 1/05/2018.
+ * Data Model that holds a Q table. Model also contains a list of all QTableRows belonging to the
+ * table
  */
 
 public class QTableWithRows {
@@ -22,7 +23,11 @@ public class QTableWithRows {
     @Ignore
     private SparseArray<QTableRow> mRowsMappedByState;
 
-    public SparseArray<QTableRow> getRowsIndexedByState() {
+    /**
+     * Returns the rows as a HashMap indexed by their states.
+     * @return
+     */
+    SparseArray<QTableRow> getRowsIndexedByState() {
         if (mRowsMappedByState == null) {
             mRowsMappedByState = new SparseArray<>();
             for (QTableRow row : rows) {

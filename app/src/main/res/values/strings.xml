@@ -140,4 +140,5 @@
     <string name="default_opponents_action_label">\???</string>
     <string name="your_score_label">Your Score</string>
     <string name="opponent_s_score_label">Opponent\'s Score</string>
+    <string name="next_round_button_text">Next Round</string>
 </resources>

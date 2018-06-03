@@ -19,7 +19,7 @@ public class PrisonerSelectPresenterImpl implements PrisonerSelectPresenter,
 
     @Override
     public void populateList() {
-        mView.populatePrisonersList(mView.getExcludePrisonerExtra());
+        mView.populatePrisonersList(mView.getExcludePrisonerId());
     }
 
     @Override

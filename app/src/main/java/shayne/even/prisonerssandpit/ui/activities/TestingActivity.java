@@ -14,6 +14,11 @@ import shayne.even.prisonerssandpit.ui.presenters.TestingPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.TestingPresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.TestingView;
 
+/**
+ * Activity that tests the performance when two prisoners are opposing each other and displays the
+ * results
+ */
+
 public class TestingActivity extends AppCompatActivity implements TestingView {
 
     @BindView(R.id.prisoner_name_title)
@@ -52,19 +57,19 @@ public class TestingActivity extends AppCompatActivity implements TestingView {
         mResultsListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mResultsListRecyclerView.setAdapter(new TesterResultsAdapter(
                 this,
-                getPrisonerExtra(),
-                getTesterExtra(),
+                getPrisonerId(),
+                getTesterId(),
                 mPresenter.getScoreUpdaterListener()
         ));
     }
 
     @Override
-    public long getPrisonerExtra() {
+    public long getPrisonerId() {
         return getIntent().getLongExtra(PRISONER_ID_EXTRA, -1);
     }
 
     @Override
-    public long getTesterExtra() {
+    public long getTesterId() {
         return getIntent().getLongExtra(PRISONER_TESTER_ID_EXTRA, -1);
     }
 

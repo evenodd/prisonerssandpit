@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import shayne.even.prisonerssandpit.R;
 import shayne.even.prisonerssandpit.models.Prisoner;
-import shayne.even.prisonerssandpit.rl.episodes.PrisonersDilemma;
+import shayne.even.prisonerssandpit.rl.environments.PrisonersDilemma;
 import shayne.even.prisonerssandpit.rl.testers.TesterResult;
 import shayne.even.prisonerssandpit.tasks.OnResultsUpdatedListener;
 import shayne.even.prisonerssandpit.tasks.PrisonerTestingAsyncTask;
@@ -17,7 +17,7 @@ import shayne.even.prisonerssandpit.ui.views.TesterResultItemView;
 import shayne.even.prisonerssandpit.ui.views.TesterResultsListView;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * Implementation of the TesterResultsPresenter
  */
 
 public class TesterResultsPresenterImpl implements TesterResultsPresenter,
@@ -31,6 +31,14 @@ public class TesterResultsPresenterImpl implements TesterResultsPresenter,
 
     private int prisonerScore = 0, testerScore= 0;
 
+    /**
+     * Creates a TesterResultsPresenterImpl
+     * @param context the context of the view
+     * @param view the view the presenter is for
+     * @param prisoner the prisoner to be tested
+     * @param tester the prisoner to be tested against
+     * @param listener handles updates in the scores within the test results
+     */
     public TesterResultsPresenterImpl(Context context, TesterResultsListView view, long prisoner,
                                       long tester,
                                       TesterResultsListView.OnScoreUpdateListener listener) {
@@ -115,6 +123,12 @@ public class TesterResultsPresenterImpl implements TesterResultsPresenter,
         new PrisonerTestingAsyncTask(mContext, mPrisoner, mTester, this).execute();
     }
 
+    /**
+     * {@inheritDoc}
+     * Adds the results to the list, notifies the view the data has changes and notifies the
+     * listener that the scores have changed
+     * @param testerResult the iteration's results
+     */
     @Override
     public void onNextResultsUpdate(TesterResult testerResult) {
         mTesterResults.set(getItemCount() - 1, testerResult);

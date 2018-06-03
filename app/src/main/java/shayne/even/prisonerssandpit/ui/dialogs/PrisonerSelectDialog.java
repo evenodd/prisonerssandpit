@@ -14,6 +14,10 @@ import shayne.even.prisonerssandpit.ui.presenters.PrisonerSelectPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerSelectPresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.PrisonerSelectView;
 
+/**
+ * Dialog that lets users select from a list of prisoners
+ */
+
 public class PrisonerSelectDialog extends AppCompatDialog implements PrisonerSelectView {
 
     private final long mExcludedPrisoner;
@@ -23,6 +27,12 @@ public class PrisonerSelectDialog extends AppCompatDialog implements PrisonerSel
 
     private PrisonerSelectPresenter mPresenter;
 
+    /**
+     * Creates a PrisonerSelectDialog
+     * @param context the context of the activity to display the dialog
+     * @param excludedPrisoner the prisoner to exclude in the list
+     * @param listener handles the selection of a prisoner
+     */
     public PrisonerSelectDialog(Context context, long excludedPrisoner,
                                 PrisonerSelectPresenter.OnSelectListener listener) {
         super(context);
@@ -43,7 +53,7 @@ public class PrisonerSelectDialog extends AppCompatDialog implements PrisonerSel
     }
 
     @Override
-    public long getExcludePrisonerExtra() {
+    public long getExcludePrisonerId() {
         return mExcludedPrisoner;
     }
 

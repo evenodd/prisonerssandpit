@@ -1,21 +1,13 @@
 package shayne.even.prisonerssandpit.ui.activities;
 
-import android.content.ClipData;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.DragEvent;
-import android.view.MotionEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.skyfishjy.library.RippleBackground;
-
-import org.w3c.dom.Text;
-
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +16,10 @@ import shayne.even.prisonerssandpit.R;
 import shayne.even.prisonerssandpit.ui.presenters.VsPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.VsPresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.VsView;
+
+/**
+ * Activity that lets the user vs a prisoner agent directly in a Prisoner's Dilemma
+ */
 
 public class VsActivity extends AppCompatActivity implements VsView {
 
@@ -69,16 +65,28 @@ public class VsActivity extends AppCompatActivity implements VsView {
         mPresenter = new VsPresenterImpl(this, this);
     }
 
+    /**
+     * Notifies presenter the betray button has been clicked
+     * @param view the view of the clicked button
+     */
     @OnClick(R.id.betray_button)
     public void onBetrayButtonClicked(View view) {
         mPresenter.onBetrayAction();
     }
 
+    /**
+     * Notifies the presenter the cooperate button has been clicked
+     * @param view the view of the clicked button
+     */
     @OnClick(R.id.cooperate_button)
     public void onCooperateButtonClicked(View view) {
         mPresenter.onCooperateAction();
     }
 
+    /**
+     * Notifies the presenter the next round button has been clicked
+     * @param view the view of the clicked button
+     */
     @OnClick(R.id.next_round_text_view)
     public void onNextRoundClick(View view) {
         mPresenter.handleNextRoundButtonClicked();

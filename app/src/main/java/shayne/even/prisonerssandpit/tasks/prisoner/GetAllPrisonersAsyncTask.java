@@ -9,7 +9,7 @@ import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.tasks.BaseAsyncTask;
 
 /**
- * Created by Shayne Even on 14/05/2018.
+ * Queries the database for all prisoners within an async task
  */
 
 public class GetAllPrisonersAsyncTask extends BaseAsyncTask<Void, Void, ArrayList<Prisoner>> {

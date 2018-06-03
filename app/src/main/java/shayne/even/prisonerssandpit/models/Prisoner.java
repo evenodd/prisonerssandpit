@@ -7,9 +7,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.content.Context;
-import android.util.Log;
 
-import java.util.Locale;
 import java.util.Random;
 
 import shayne.even.prisonerssandpit.PrisonersSandpitApp;
@@ -17,11 +15,11 @@ import shayne.even.prisonerssandpit.di.component.DaggerModelComponent;
 import shayne.even.prisonerssandpit.di.component.ModelComponent;
 
 import static shayne.even.prisonerssandpit.models.Prisoner.Q_TABLE;
-import static shayne.even.prisonerssandpit.rl.episodes.PrisonersDilemma.BETRAY;
-import static shayne.even.prisonerssandpit.rl.episodes.PrisonersDilemma.STAY;
+import static shayne.even.prisonerssandpit.rl.environments.PrisonersDilemma.BETRAY;
+import static shayne.even.prisonerssandpit.rl.environments.PrisonersDilemma.STAY;
 
 /**
- * Created by Shayne Even on 23/04/2018.
+ * Data model for Q Learning Agents that can interact in Prisoner Dilemmas.
  */
 
 @Entity(
@@ -59,6 +57,14 @@ public class Prisoner {
     @Ignore
     private ModelComponent mModelComponent;
 
+    /**
+     * Creates a new Prisoner Model. After initiated the model should be inserted into the database
+     * to generate its uid.
+     * @param name the name of the prisoner
+     * @param qTable the id of its Q Table
+     * @param alpha the alpha constant to use in its leaning algorithm
+     * @param gamma the gamma constant to use in its learning algorithm
+     */
     public Prisoner(String name, long qTable, double alpha, double gamma) {
         mAlpha = alpha;
         mGamma = gamma;
@@ -112,6 +118,13 @@ public class Prisoner {
         return  mModelComponent;
     }
 
+    /**
+     * Queries the database for the Q table row with the specified state and returns the action with
+     * the largest Q value. If the actions have the same value the actio if chosen randomly.
+     * @param context the app context used to get the AppDatabaseInstance
+     * @param state the PrisonerDilemma state to get an action for
+     * @return PrisonersDilemma.STAY(0) or PrisonersDilemma.BETRAY(1)
+     */
     public int getAction(Context context, int state) {
 
         QTableRow row = getComponent(context)
@@ -123,6 +136,10 @@ public class Prisoner {
         return row.getStayQValue() > row.getBetrayQValue() ? STAY : BETRAY;
     }
 
+    /**
+     * Holds a prisoner model's respective QTableWithRowsModel. The Model is lazy loaded the first
+     * time it is requested.
+     */
     private class QTableHolder {
         private QTableWithRows mQTableWithRows;
 
@@ -138,50 +155,62 @@ public class Prisoner {
 
         QTableRow getRow(int state, Context context) {
             return getQTable(context).getRowsIndexedByState().get(state);
-//            for (QTableRow row : mQTableHolder.getQTable(context).rows) {
-//                if (row.getState() == state) return row;
-//            }
-//            throw new IllegalArgumentException(String.format(
-//                    Locale.ENGLISH,
-//                    "Invalid state %d",
-//                    state)
-//            );
         }
 
         void updateQTable(Context context) {
-            getComponent(context)
-                    .getAppDatabase()
-                    .qTableDao()
-                    .updateQTableRows(mQTableWithRows.rows);
+            if (mQTableWithRows != null) {
+                getComponent(context)
+                        .getAppDatabase()
+                        .qTableRowDao()
+                        .updateQTableRows(mQTableWithRows.rows);
+            }
         }
     }
 
-    public double getQValue(int state, int action, Context context) {
+    private double getQValue(int state, int action, Context context) {
         QTableRow row = mQTableHolder.getRow(state, context);
         if (action == BETRAY) return row.getBetrayQValue();
         return row.getStayQValue();
     }
 
-    public double getMaxQ(int state, Context context) {
+    private double getMaxQ(int state, Context context) {
         QTableRow row = mQTableHolder.getRow(state, context);
         if (row.getStayQValue() > row.getBetrayQValue()) return row.getStayQValue();
         return row.getBetrayQValue();
     }
 
-    public void learn(int startState, int state, int reward, int action, Context context,
+
+    /**
+     * Calculates the "quality" of the specified action given the specified state and stores the
+     * value in the agent's Q Table. The q table will be lazy loaded from the database the first
+     * time this method is called.
+     * @param state the state the agent performed the action in
+     * @param nextState the next state the agent will be in after performing the action
+     * @param reward the reward the agent received for the given action
+     * @param action the action the agent performed
+     * @param context the context of the application to connect to the database with
+     * @param finalState a flag that signifies if the agent is in a final state and wont
+     *                   transition into a new state
+     */
+    public void learn(int state, int nextState, int reward, int action, Context context,
                       boolean finalState) {
-        double q = getQValue(startState, action, context);
-        double maxQ = finalState ? 0 : getMaxQ(state, context);
+        double q = getQValue(state, action, context);
+        double maxQ = finalState ? 0 : getMaxQ(nextState, context);
         double value = q + mAlpha * (reward + mGamma * maxQ - q);
 
         if (action == BETRAY) {
-            mQTableHolder.getRow(startState, context).setBetrayQValue(value);
+            mQTableHolder.getRow(state, context).setBetrayQValue(value);
         }
         else {
-            mQTableHolder.getRow(startState, context).setStayQValue(value);
+            mQTableHolder.getRow(state, context).setStayQValue(value);
         }
     }
 
+    /**
+     * Saves the new "learned" q values into the database. Will do nothing if the 'learn' method
+     * hasn't been called.
+     * @param context the application context to connect to the database with
+     */
     public void saveQTable(Context context) {
         mQTableHolder.updateQTable(context);
     }

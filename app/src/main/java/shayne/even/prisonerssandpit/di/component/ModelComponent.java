@@ -9,7 +9,7 @@ import shayne.even.prisonerssandpit.di.modules.ModelModule;
 import shayne.even.prisonerssandpit.models.Prisoner;
 
 /**
- * Created by Shayne Even on 20/05/2018.
+ * Model Component that contains the Models' database dependency
  */
 
 @Component(
@@ -18,9 +18,22 @@ import shayne.even.prisonerssandpit.models.Prisoner;
 )
 @ModelContext
 public interface ModelComponent {
+    /**
+     * Provides the applications context from the Application Component
+     * @return the apps context
+     */
     Context getContext();
+
+    /**
+     * Provides the AppDatabase instance
+     * @return the AppDatabase instance
+     */
     AppDatabase getAppDatabase();
 
+    /**
+     * Inject members and methods to the passed Prisoner Model
+     * @param prisoner the instance to inject
+     */
     void inject(Prisoner prisoner);
 
 }

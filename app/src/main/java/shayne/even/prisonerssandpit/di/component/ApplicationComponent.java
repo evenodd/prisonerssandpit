@@ -11,14 +11,27 @@ import shayne.even.prisonerssandpit.di.modules.ApplicationModule;
 import shayne.even.prisonerssandpit.di.modules.DatabaseModule;
 
 /**
- * Created by Shayne Even on 14/05/2018.
+ * The Application component that contains the apps database dependency.
  */
 
 @Singleton
 @Component(modules = {ApplicationModule.class, DatabaseModule.class})
 public interface ApplicationComponent {
+    /**
+     * Provides the application's context
+     * @return the Context of the application
+     */
     Context getContext();
+
+    /**
+     * Provides the database from the DatabaseModule
+     * @return the instance of the AppDatabase
+     */
     AppDatabase getAppDatabase();
 
+    /**
+     * Injects members and methods to the passed Application instance
+     * @param app the app to inject
+     */
     void inject(PrisonersSandpitApp app);
 }

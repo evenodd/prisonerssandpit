@@ -3,9 +3,13 @@ package shayne.even.prisonerssandpit.tasks.performanceScore;
 import shayne.even.prisonerssandpit.models.PrisonerPerformanceScore;
 
 /**
- * Created by Shayne Even on 13/05/2018.
+ * Listener for OnGetPerformanceScoreAsyncTask
  */
 
 public interface OnGetPerformanceScoreListener {
+    /**
+     * Callback function for when the async task has completed
+     * @param prisonerPerformanceScore results of the async task
+     */
     void onSuccess(PrisonerPerformanceScore prisonerPerformanceScore);
 }

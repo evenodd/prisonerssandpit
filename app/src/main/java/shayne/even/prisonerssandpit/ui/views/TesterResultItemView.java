@@ -1,15 +1,29 @@
 package shayne.even.prisonerssandpit.ui.views;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * View for an item in a test results list
  */
 
 public interface TesterResultItemView {
+    /**
+     * Displays the progress bars
+     */
     void displayProgress();
 
+    /**
+     * Hides the progress bars
+     */
     void hideProgress();
 
+    /**
+     * Displays the passed action as the prisoner's action
+     * @param action the action to display
+     */
     void setPrisonerAction(String action);
 
+    /**
+     * Displays the passed action as the tester's action
+     * @param action the action to display
+     */
     void setTesterAction(String action);
 }

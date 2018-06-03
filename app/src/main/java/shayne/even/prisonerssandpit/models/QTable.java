@@ -14,7 +14,7 @@ import shayne.even.prisonerssandpit.database.AppDatabase;
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
- * Created by Shayne Even on 1/05/2018.
+ * Data Model for  the Q Table used by reinforcement learning agents
  */
 @Entity(tableName = "q_table")
 public class QTable {
@@ -42,14 +42,12 @@ public class QTable {
     public static long createQTableWithRows(AppDatabase db) {
         long id = db.qTableDao().insertQTable(new QTable());
 
-        int nbOfStates = calculateNumberOfStates();
-
         ArrayList<QTableRow> qTableRows = new ArrayList<>();
 
         for(int i = 0; i < calculateNumberOfStates(); i++) {
             qTableRows.add(new QTableRow(id, i, 0, 0));
         }
-        db.qTableDao().insertQTableRows(qTableRows);
+        db.qTableRowDao().insertQTableRows(qTableRows);
         return id;
     }
 

@@ -15,7 +15,7 @@
 
     <style name="AppTheme.Button" parent="@android:style/Widget.Button">
         <item name="android:textColor">@color/textPrimary</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@color/colorAccent</item>
     </style>
 
 

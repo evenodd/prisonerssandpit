@@ -1,12 +1,9 @@
-package shayne.even.prisonerssandpit.rl.episodes;
+package shayne.even.prisonerssandpit.rl.environments;
 
-import android.arch.persistence.room.Entity;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.util.Pair;
 
 /**
- * Created by Shayne Even on 2/05/2018.
+ * An environment that performs episodes of iterative Prisoner Dilemmas.
  */
 
 public class PrisonersDilemma implements EnvironmentState {
@@ -27,7 +24,12 @@ public class PrisonersDilemma implements EnvironmentState {
         mState = 0;
     }
 
-    protected void updateState(int action, int othersAction) {
+    /**
+     * Updates the environment's state based on the passed actions of its two agents
+     * @param action the action of the environment's first agent
+     * @param othersAction the action of the second agent
+     */
+    void updateState(int action, int othersAction) {
         mState = (mState * 4) + (action << 1) + othersAction + 1;
     }
 
@@ -50,7 +52,7 @@ public class PrisonersDilemma implements EnvironmentState {
         return mState;
     }
 
-    protected Pair<Integer, Integer> getRewards() {
+    Pair<Integer, Integer> getRewards() {
         if (mState == 0) return new Pair<>(0, 0);
         return new Pair<>(
                 REWARD_MATRIX[(mState - 1) % 4][0],
@@ -58,6 +60,13 @@ public class PrisonersDilemma implements EnvironmentState {
         );
     }
 
+    /**
+     * Performs an episode of the prisoner's dilemma
+     * @param firstAgent the first prisoner agent in the dilemma
+     * @param secondAgent the second prisoner agent in the dilemma
+     * @param listener a listener that gets called at the start and end of the episode and every
+     *                 iteration
+     */
     public void runEpisode(Agent firstAgent, Agent secondAgent, EpisodeListener listener) {
         firstAgent.onPreEpisode(this);
         secondAgent.onPreEpisode(this);
@@ -76,25 +85,59 @@ public class PrisonersDilemma implements EnvironmentState {
         if (listener != null) listener.onPostEpisode(this);
     }
 
+    /**
+     * Returns the environment to its starting state
+     */
     public void resetEpisode() {
         mState = 0;
     }
 
-    public interface Agent {
+    /**
+     * An agent that can participate and interact within a Prisoner Dilemma environment
+     */
+    public interface Agent extends EpisodeListener{
+        /**
+         * returns the action the agent would perform given the passed state
+         * @param state the state the PrisonersDilemma environment is in
+         * @return the action the agent would perform
+         */
         int getAction(int state);
 
-        void onPreEpisode(EnvironmentState environmentState);
-        void onPostEpisode(EnvironmentState environmentState);
-
-        void onPreIteration(EnvironmentState environmentState);
+        /**
+         * Callback function called at the end of an iteration of a dilemma
+         * @param environmentState the state the Prisoner's Dilemma environment is in
+         * @param reward the reward the agent received for it's action
+         */
         void onPostIteration(EnvironmentState environmentState, int reward);
     }
 
+    /**
+     * An entity that that can listen to milestones during episodes of Prisoner Dilemmas
+     */
     public interface EpisodeListener {
+        /**
+         * Callback function called at the start of an episode
+         * @param environmentState the state the Prisoner's Dilemma environment is in
+         */
         void onPreEpisode(EnvironmentState environmentState);
+
+        /**
+         * Callback function called at the end of an episode
+         * @param environmentState the state the Prisoner's Dilemma environment is in
+         */
         void onPostEpisode(EnvironmentState environmentState);
 
+        /**
+         * Callback function called at the start of an iteration of a dilemma
+         * @param environmentState the state the Prisoner's Dilemma environment is in
+         */
         void onPreIteration(EnvironmentState environmentState);
+
+        /**
+         * Callback function called at the end of an iteration of a dilemma
+         * @param environmentState the state the Prisoner's Dilemma environment is in
+         */
         void onPostIteration(EnvironmentState environmentState);
+
     }
 }

@@ -25,6 +25,10 @@ import shayne.even.prisonerssandpit.ui.presenters.MainPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.MainPresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.MainView;
 
+/**
+ * Main activity lists all the prisoner agents and lets users start the AddPrisoner Activity
+ */
+
 public class MainActivity extends AppCompatActivity implements MainView {
 
     @BindView(R.id.main_activity_prisoner_recycler_view)
@@ -53,6 +57,39 @@ public class MainActivity extends AppCompatActivity implements MainView {
         ));
     }
 
+    /**
+     * Notifies the presenter that result from another activity are available
+     * @param requestCode the request code to start the activity
+     * @param resultCode the result code from the other activity
+     * @param data the intent data from the other activity
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case AddPrisonerActivity.ADD_PRISONER_REQUEST :
+                if (data != null) {
+                    mPresenter.handleAddPrisonerResult(
+                            resultCode,
+                            data.getLongExtra(AddPrisonerActivity.NEW_PRISONER_ID, -1)
+                    );
+                }
+                else {
+                    mPresenter.handleInvalidResultFromAddPrisonerView();
+                }
+                break;
+        }
+    }
+
+    /**
+     * Notifies the presenter the floating action button has been clicked
+     * @param view the view of the fab
+     */
+    @OnClick(R.id.fab)
+    public void handleFloatingActionButtonClick(View view) {
+        mPresenter.navigateToAddPrisonerView();
+    }
+
     @Override
     public void showAddPrisonerTapTarget() {
         TapTargetView.showFor(this,
@@ -72,26 +109,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case AddPrisonerActivity.ADD_PRISONER_REQUEST :
-                mPresenter.handleAddPrisonerResult(
-                        resultCode,
-                        data.getLongExtra(AddPrisonerActivity.NEW_PRISONER_ID, -1)
-                );
-                break;
-        }
-    }
-
-    @Override
     public boolean okResultCode(int resultCode) {
         return resultCode == Activity.RESULT_OK;
-    }
-
-    @OnClick(R.id.fab)
-    public void handleFloatingActionButtonClick(View view) {
-        mPresenter.navigateToAddPrisonerView();
     }
 
     @Override

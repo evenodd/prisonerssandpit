@@ -1,9 +1,12 @@
 package shayne.even.prisonerssandpit.ui.views;
 
 /**
- * Created by Shayne Even on 13/05/2018.
+ * The view for a list of prisoner models
  */
 
 public interface PrisonerListView {
-    public void notifyPrisonerDataChanged();
+    /**
+     * Updates the user interface to reflect changes to the data
+     */
+    void notifyPrisonerDataChanged();
 }

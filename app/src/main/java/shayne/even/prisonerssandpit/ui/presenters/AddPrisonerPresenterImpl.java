@@ -10,7 +10,7 @@ import shayne.even.prisonerssandpit.tasks.prisoner.OnAddPrisonerFinishedListener
 import shayne.even.prisonerssandpit.ui.views.AddPrisonerView;
 
 /**
- * Created by Shayne Even on 13/05/2018.
+ * Implementation of the AddPrisonerPresenter
  */
 
 public class AddPrisonerPresenterImpl implements AddPrisonerPresenter,

@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
 /**
- * Created by Shayne Even on 28/05/2018.
+ * Annotation to identify the scope of the app's services
  */
 
 @Scope

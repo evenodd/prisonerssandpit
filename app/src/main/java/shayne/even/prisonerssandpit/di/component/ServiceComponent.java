@@ -9,7 +9,7 @@ import shayne.even.prisonerssandpit.di.modules.ServiceModule;
 import shayne.even.prisonerssandpit.service.AgentTrainerService;
 
 /**
- * Created by Shayne Even on 28/05/2018.
+ * Service component that contains the Services' database dependency
  */
 
 @Component(
@@ -18,9 +18,16 @@ import shayne.even.prisonerssandpit.service.AgentTrainerService;
 )
 @ServiceContext
 public interface ServiceComponent {
+    /** Provides the context of the application from the ApplicationComponent */
     Context getContext();
+
+    /** Provides the instance of the AppDatabase from the Application Component*/
     AppDatabase getAppDatabase();
 
+    /**
+     * Injects modules and methods into the passed Service
+     * @param agentTrainerService th instance to inject
+     */
     void inject(AgentTrainerService agentTrainerService);
 
 }

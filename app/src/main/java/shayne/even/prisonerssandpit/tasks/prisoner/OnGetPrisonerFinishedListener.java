@@ -3,9 +3,13 @@ package shayne.even.prisonerssandpit.tasks.prisoner;
 import shayne.even.prisonerssandpit.models.Prisoner;
 
 /**
- * Created by Shayne Even on 13/05/2018.
+ * Listener for an OnGetPrisonerAsyncTask
  */
 
 public interface OnGetPrisonerFinishedListener {
+    /**
+     * Callback function for the completion of the async task
+     * @param prisoner the results of the async task
+     */
     void onSuccess(Prisoner prisoner);
 }

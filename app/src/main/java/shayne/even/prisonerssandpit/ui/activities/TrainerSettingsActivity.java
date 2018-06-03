@@ -23,6 +23,9 @@ import shayne.even.prisonerssandpit.ui.presenters.TrainerSettingsPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.TrainerSettingsPresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.TrainerSettingsView;
 
+/**
+ * Activity that lets the user configure and start the Training Service
+ */
 public class TrainerSettingsActivity extends AppCompatActivity implements TrainerSettingsView,
         PrisonerSelectPresenter.OnSelectListener {
 
@@ -45,6 +48,19 @@ public class TrainerSettingsActivity extends AppCompatActivity implements Traine
 
     private TrainerSettingsPresenter mPresenter;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_trainer_settings);
+        ButterKnife.bind(this);
+
+        mPresenter = new TrainerSettingsPresenterImpl(this);
+    }
+
+    /**
+     * Notifies the presenter the train button has been clicked
+     * @param view
+     */
     @OnClick(R.id.trainer_settings_train_button)
     void onTrainButtonClick(View view) {
         mPresenter.startTrainerService();
@@ -129,15 +145,11 @@ public class TrainerSettingsActivity extends AppCompatActivity implements Traine
         ));
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trainer_settings);
-        ButterKnife.bind(this);
-
-        mPresenter = new TrainerSettingsPresenterImpl(this);
-    }
-
+    /**
+     * Notifies the presenter a prisoner has been selected in the select prisoner dialog
+     * {@inheritDoc}
+     * @param prisoner
+     */
     @Override
     public void onSelect(Prisoner prisoner) {
         mPresenter.handleSelectPrisoner(prisoner);

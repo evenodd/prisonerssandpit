@@ -5,11 +5,12 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import shayne.even.prisonerssandpit.models.Prisoner;
-import shayne.even.prisonerssandpit.rl.episodes.EnvironmentState;
-import shayne.even.prisonerssandpit.rl.episodes.PrisonersDilemma;
+import shayne.even.prisonerssandpit.rl.environments.EnvironmentState;
+import shayne.even.prisonerssandpit.rl.environments.PrisonersDilemma;
 
 /**
- * Created by Shayne Even on 20/05/2018.
+ * A wrapper for a Prisoner data model that lets it act as an Agent for an episode of a Prisoner's
+ * Dilemma
  */
 
 public class PrisonerAgentHolder implements PrisonersDilemma.Agent {
@@ -19,18 +20,29 @@ public class PrisonerAgentHolder implements PrisonersDilemma.Agent {
     private ArrayList<Integer> rewards;
     private int mLastAction;
 
+    /**
+     * Creates a PrisonerAgentHolder
+     * @param prisoner the prisoner agent that supplies actions
+     * @param context the application context to use to get actions from the database
+     */
     public PrisonerAgentHolder(Prisoner prisoner, Context context) {
         mPrisoner = prisoner;
         mContext = context;
     }
 
+    /**
+     * {@inheritDoc}
+     * Gets an action based on the model within the prisoner's Q Table
+     * @param state the state the PrisonersDilemma environment is in
+     * @return
+     */
     @Override
     public int getAction(int state) {
         mLastAction = mPrisoner.getAction(mContext, state);
         return mLastAction;
     }
 
-    public int getLastAction() {
+    protected int getLastAction() {
         return mLastAction;
     }
 
@@ -46,6 +58,11 @@ public class PrisonerAgentHolder implements PrisonersDilemma.Agent {
 
     @Override
     public void onPreIteration(EnvironmentState prisonerDilemmaEpisodeState) {
+
+    }
+
+    @Override
+    public void onPostIteration(EnvironmentState environmentState) {
 
     }
 

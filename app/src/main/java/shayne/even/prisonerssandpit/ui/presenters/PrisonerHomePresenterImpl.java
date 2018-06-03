@@ -1,13 +1,9 @@
 package shayne.even.prisonerssandpit.ui.presenters;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -16,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import shayne.even.prisonerssandpit.R;
 import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.models.PrisonerPerformanceScore;
 import shayne.even.prisonerssandpit.models.PrisonerStatus;
@@ -45,8 +40,14 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
     public PrisonerHomePresenterImpl(PrisonerHomeView view, Context context) {
         mView = view;
         mContext = context;
+        getPrisoner();
     }
 
+    /**
+     * {@inheritDoc}
+     * Creates a listener that updates the status on the view
+     * @param prisonerStatus the results of the async task
+     */
     @Override
     public void onSuccess(LiveData<PrisonerStatus> prisonerStatus) {
         prisonerStatus.observeForever( new Observer<PrisonerStatus>() {
@@ -57,6 +58,11 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
         });
     }
 
+    /**
+     * {@inheritDoc}
+     * Displays the prisoner's details on the view
+     * @param prisoner the results of the async task
+     */
     @Override
     public void onSuccess(Prisoner prisoner) {
         mPrisoner = prisoner;
@@ -67,6 +73,12 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
         getStatus(mPrisoner.getUid());
     }
 
+    /**
+     * {@inheritDoc}
+     * Creates Bar Data Sets from the scores and sends them to the view to be displayed in the
+     * performance chart
+     * @param prisonerPerformanceScore results of the async task
+     */
     @Override
     public void onSuccess(PrisonerPerformanceScore prisonerPerformanceScore) {
         List<BarEntry>
@@ -91,12 +103,11 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
         mView.navigateToTrainerOptions();
     }
 
-    @Override
-    public void getPrisoner() {
+    private void getPrisoner() {
         new GetPrisonerAsyncTask(mContext, this, mView.getPrisonerId()).execute();
     }
 
-    public void getStatus(long prisonerId) {
+    private void getStatus(long prisonerId) {
         new GetPrisonerStatusAsyncTask(mContext, this, prisonerId).execute();
     }
 
@@ -105,8 +116,7 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
         mView.navigateToVs(mView.getPrisonerId());
     }
 
-    @Override
-    public void getPerformanceScore(long prisonerId) {
+    private void getPerformanceScore(long prisonerId) {
         new GetPerformanceScoreAsyncTask(mContext, this, prisonerId).execute();
     }
 
@@ -129,8 +139,14 @@ public class PrisonerHomePresenterImpl implements PrisonerHomePresenter,
                 '}';
     }
 
+    /**
+     * {@inheritDoc}
+     * Handler for when a prisoner is selected. Opens the Testing View using the passed prisoner as
+     * the tester
+     * @param prisoner the selected prisoner
+     */
     @Override
     public void onSelect(Prisoner prisoner) {
-        mView.startTestingActivity(mView.getPrisonerId(), prisoner.getUid());
+        mView.startTestingView(mView.getPrisonerId(), prisoner.getUid());
     }
 }

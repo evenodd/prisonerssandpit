@@ -1,14 +1,25 @@
 package shayne.even.prisonerssandpit.ui.views;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * View for prisoner select dialog
  */
 
 public interface PrisonerSelectView {
 
-    long getExcludePrisonerExtra();
+    /**
+     * Provides the prisoner to be excluded from the list
+     * @return the id of the excluded prisoner
+     */
+    long getExcludePrisonerId();
 
-    void populatePrisonersList(long excludePrisonerExtra);
+    /**
+     * Populates the list with prisoners excluding the specified prisoner
+     * @param excludedPrisoner teh id of the prisoner to exclude
+     */
+    void populatePrisonersList(long excludedPrisoner);
 
+    /**
+     * Closes the dialog
+     */
     void closeDialog();
 }

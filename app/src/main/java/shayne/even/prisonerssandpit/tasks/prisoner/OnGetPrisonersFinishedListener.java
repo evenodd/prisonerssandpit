@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import shayne.even.prisonerssandpit.models.Prisoner;
 
 /**
- * Created by Shayne Even on 14/05/2018.
+ * Listener for a GetPrisonerAsyncTask
  */
 
 public interface OnGetPrisonersFinishedListener {
 
+    /**
+     * Callback function for the completion of the async task
+     * @param prisoners the results of the async task
+     */
     void onSuccess(ArrayList<Prisoner> prisoners);
 
 }

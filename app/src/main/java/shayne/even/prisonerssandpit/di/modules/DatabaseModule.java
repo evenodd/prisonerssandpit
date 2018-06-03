@@ -10,13 +10,17 @@ import dagger.Provides;
 import shayne.even.prisonerssandpit.database.AppDatabase;
 
 /**
- * Created by Shayne Even on 20/05/2018.
+ * Database module that provides the app's AppDatabase instance
  */
 
 @Module
 public class DatabaseModule {
     private AppDatabase mAppDatabase;
 
+    /**
+     * Creates a DatabaseModule
+     * @param context the apps context
+     */
     public DatabaseModule(Context context) {
         mAppDatabase = Room.databaseBuilder(
                 context.getApplicationContext(),
@@ -25,6 +29,7 @@ public class DatabaseModule {
         ).build();
     }
 
+    /** Provides the apps AppDatabase as a singleton pattern */
     @Singleton
     @Provides
     AppDatabase providesAppDatabase() {

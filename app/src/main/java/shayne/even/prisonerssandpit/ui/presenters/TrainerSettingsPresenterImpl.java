@@ -4,7 +4,7 @@ import shayne.even.prisonerssandpit.models.Prisoner;
 import shayne.even.prisonerssandpit.ui.views.TrainerSettingsView;
 
 /**
- * Created by Shayne Even on 21/05/2018.
+ * Implementation of the TrainerSettingsPresenter
  */
 
 public class TrainerSettingsPresenterImpl implements TrainerSettingsPresenter {

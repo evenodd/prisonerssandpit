@@ -13,7 +13,7 @@ import shayne.even.prisonerssandpit.di.component.DaggerTaskComponent;
 import shayne.even.prisonerssandpit.di.component.TaskComponent;
 
 /**
- * Created by Shayne Even on 20/05/2018.
+ * Base class for Async Tasks that query the database
  */
 
 public abstract class BaseAsyncTask<Params, Progress, Results>
@@ -29,7 +29,11 @@ public abstract class BaseAsyncTask<Params, Progress, Results>
         mContext = context;
     }
 
-    public TaskComponent getTaskComponent() {
+    /**
+     * Provides the component that contains async task dependencies
+     * @return the Dagger component for async tasks
+     */
+    protected TaskComponent getTaskComponent() {
         if (mTaskComponent == null) {
             mTaskComponent = DaggerTaskComponent.builder()
                     .applicationComponent(PrisonersSandpitApp.get(mContext.get()).getComponent())
@@ -37,9 +41,4 @@ public abstract class BaseAsyncTask<Params, Progress, Results>
         }
         return mTaskComponent;
     }
-
-    public  Context getContext() {
-        return mContext.get();
-    }
-
 }

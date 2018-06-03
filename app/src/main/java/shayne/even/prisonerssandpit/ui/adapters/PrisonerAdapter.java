@@ -16,7 +16,7 @@ import shayne.even.prisonerssandpit.ui.views.PrisonerListView;
 import shayne.even.prisonerssandpit.ui.views.PrisonerRowView;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * Base adapter class for List Views of Prisoner Models
  */
 
 public abstract class PrisonerAdapter extends RecyclerView.Adapter<PrisonerAdapter.ViewHolder>
@@ -24,16 +24,19 @@ public abstract class PrisonerAdapter extends RecyclerView.Adapter<PrisonerAdapt
 
     protected Context mContext;
 
-    public PrisonerAdapter(Context context) {
+    PrisonerAdapter(Context context) {
         mContext = context;
     }
 
 
+    /**
+     * View Holder class manages the view of each individual list item
+     */
     public abstract class ViewHolder extends RecyclerView.ViewHolder implements PrisonerRowView {
         @BindView(R.id.prisoner_name)
         TextView mName;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -48,16 +51,15 @@ public abstract class PrisonerAdapter extends RecyclerView.Adapter<PrisonerAdapt
             return getAdapterPosition();
         }
 
-        @Override
-        public Context getContext() {
-            return mContext;
-        }
-
+        /**
+         * Handler for when an item is clicked
+         * @param view the view of the clicked item
+         */
         @OnClick(R.id.prisoner_name)
         public abstract void onPrisonerClicked(View view);
     }
 
-    public View inflateViewGroup(@NonNull ViewGroup parent) {
+    View inflateViewGroup(@NonNull ViewGroup parent) {
         return LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.prisoner_item, parent, false);
     }

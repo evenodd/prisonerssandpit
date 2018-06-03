@@ -22,7 +22,7 @@ import shayne.even.prisonerssandpit.ui.presenters.AddPrisonerPresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.AddPrisonerView;
 
 /**
- * Created by Shayne Even on 23/04/2018.
+ * Activity contains a form for creating new prisoner agents
  */
 
 public class AddPrisonerActivity extends AppCompatActivity implements AddPrisonerView{
@@ -56,6 +56,10 @@ public class AddPrisonerActivity extends AppCompatActivity implements AddPrisone
         mAddPrisonerPresenter = new AddPrisonerPresenterImpl(this);
     }
 
+    /**
+     * Handler for clicks to the submit button passes the form data to the presenter
+     * @param view
+     */
     @OnClick(R.id.add_prisoner_activity_submit_button)
     public void addPrisoner(View view) {
         mAddPrisonerPresenter.addPrisoner(

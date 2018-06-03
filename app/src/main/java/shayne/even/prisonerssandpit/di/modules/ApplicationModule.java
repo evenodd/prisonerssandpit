@@ -8,13 +8,17 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by Shayne Even on 14/05/2018.
+ * Application Module that provides the app's context
  */
 
 @Module
 public class ApplicationModule {
     private final Context mContext;
 
+    /**
+     * Creates an Application Module
+     * @param context the app's context
+     */
     public ApplicationModule(Context context) {
         mContext = context;
     }

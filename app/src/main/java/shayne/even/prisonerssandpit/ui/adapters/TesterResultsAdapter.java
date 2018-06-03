@@ -19,7 +19,7 @@ import shayne.even.prisonerssandpit.ui.views.TesterResultItemView;
 import shayne.even.prisonerssandpit.ui.views.TesterResultsListView;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * Adapter for a list of test results between two prisoners
  */
 
 public class TesterResultsAdapter extends RecyclerView.Adapter<TesterResultsAdapter.ViewHolder>
@@ -27,12 +27,22 @@ public class TesterResultsAdapter extends RecyclerView.Adapter<TesterResultsAdap
     protected Context mContext;
     private final TesterResultsPresenter mPresenter;
 
+    /**
+     * Creates a TesterResultsAdapter
+     * @param context the context of the list
+     * @param prisoner the prisoner to be tested
+     * @param tester the prisoner to be tested against
+     * @param listener handles updates to the test results
+     */
     public TesterResultsAdapter(Context context, long prisoner, long tester,
                                 OnScoreUpdateListener listener) {
         mContext = context;
         mPresenter = new TesterResultsPresenterImpl(mContext, this, prisoner, tester, listener);
     }
 
+    /**
+     * View Holder class manages the view of each individual list item
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements TesterResultItemView {
 
         @BindView(R.id.prisoner_action_result)
@@ -47,7 +57,7 @@ public class TesterResultsAdapter extends RecyclerView.Adapter<TesterResultsAdap
         @BindView(R.id.tester_result_progress_bar)
         ProgressBar mTesterProgress;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

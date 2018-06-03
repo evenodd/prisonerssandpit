@@ -10,7 +10,8 @@ import shayne.even.prisonerssandpit.models.PrisonerStatus;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenterImpl;
 
 /**
- * Created by Shayne Even on 28/05/2018.
+ * Queries the database for the status of the specified prisoner and returns the model within a
+ * LiveData holder
  */
 
 public class GetPrisonerStatusAsyncTask
@@ -19,6 +20,12 @@ public class GetPrisonerStatusAsyncTask
     private final OnGetStatusListener mListener;
     private final long mPrisoner;
 
+    /**
+     * Creates a GetPrisonerStatusAsyncTask
+     * @param context the context of the application
+     * @param listener the entity that provides the callback function
+     * @param prisonerId the id of the prisoner
+     */
     public GetPrisonerStatusAsyncTask(Context context, OnGetStatusListener listener,
                                       long prisonerId) {
         super(new WeakReference<>(context));

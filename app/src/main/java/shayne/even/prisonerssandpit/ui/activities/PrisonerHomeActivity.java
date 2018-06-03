@@ -28,6 +28,11 @@ import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenter;
 import shayne.even.prisonerssandpit.ui.presenters.PrisonerHomePresenterImpl;
 import shayne.even.prisonerssandpit.ui.views.PrisonerHomeView;
 
+/**
+ * Displays information on a Prisoner Agent and lets the user navigate to the Vs test And Train
+ * views for that prisoner
+ */
+
 public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerHomeView {
 
     public static final String PRISONER_ID = "prisoner_id_extra";
@@ -65,7 +70,6 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
         mBottomNavigationView
                 .setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mPresenter = new PrisonerHomePresenterImpl(this, this);
-        mPresenter.getPrisoner();
     }
 
     @Override
@@ -76,6 +80,12 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        /**
+         * {@inheritDoc}
+         * Notifies the presenter a navigation item has been selected
+         * @param item
+         * @return
+         */
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
@@ -87,6 +97,7 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
                     return true;
                 case R.id.navigation_vs:
                     mPresenter.navigateToVs();
+                    return true;
             }
             return false;
         }
@@ -111,7 +122,7 @@ public class PrisonerHomeActivity extends AppCompatActivity implements PrisonerH
     }
 
     @Override
-    public void startTestingActivity(long prisonerId, long testerId) {
+    public void startTestingView(long prisonerId, long testerId) {
         startActivity(new Intent(this, TestingActivity.class)
                 .putExtra(TestingActivity.PRISONER_ID_EXTRA, prisonerId)
                 .putExtra(TestingActivity.PRISONER_TESTER_ID_EXTRA, testerId)

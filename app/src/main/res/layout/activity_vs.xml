@@ -76,7 +76,7 @@
         style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:text="Next Round"
+        android:text="@string/next_round_button_text"
         android:background="@drawable/ic_action_forward"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/round_circle"
@@ -93,7 +93,8 @@
         android:text="@string/vs_activity_cooperate_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/betray_button"
-        app:layout_constraintTop_toBottomOf="@id/round_circle"/>
+        app:layout_constraintTop_toBottomOf="@id/round_circle"
+    />
 
     <Button
         android:id="@+id/betray_button"

@@ -10,37 +10,47 @@ import shayne.even.prisonerssandpit.ui.presenters.SelectPrisonerListPresenter;
 import shayne.even.prisonerssandpit.ui.presenters.SelectPrisonerListPresenterImpl;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * Adapter used for the prisoner list inside the select prisoner dialog
  */
 
 public class SelectPrisonerAdapter extends PrisonerAdapter {
 
     private final SelectPrisonerListPresenter mPresenter;
 
+    /**
+     * Creates a SelectPrisonerAdapter
+     * @param context the context of the dialog the list is in
+     * @param listener the handler for when an item is selected
+     */
     public SelectPrisonerAdapter(Context context, OnSelectListener listener) {
         super(context);
         mPresenter = new SelectPrisonerListPresenterImpl(this, mContext, listener);
     }
 
+    /**
+     * Notifies the presenter to populates the list with all prisoners except the specified one
+     * @param excludedPrisoner the prisoner to exclude form the list
+     */
     public void addAllPrisoners(long excludedPrisoner) {
-        if (excludedPrisoner == -1) {
-            mPresenter.getAllPrisoners();
-        }
-        else {
-            mPresenter.getAllPrisonersExcept(excludedPrisoner);
-        }
+        mPresenter.getAllPrisonersExcept(excludedPrisoner);
     }
 
+    /**
+     * View Holder class manages the view of each individual list item
+     */
     public class ViewHolder extends PrisonerAdapter.ViewHolder {
 
         ViewHolder(View itemView) {
             super(itemView);
         }
 
+        /**
+         * Notifies the presenter a prisoner has been selected
+         * @param view the view of the clicked item
+         */
         @Override
         public void onPrisonerClicked(View view) {
             mPresenter.handlePrisonerSelected(this);
-            //TODO return result as Intent with extra
         }
     }
 

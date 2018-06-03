@@ -1,9 +1,7 @@
 package shayne.even.prisonerssandpit.rl.testers;
 
-import android.content.Intent;
-
 /**
- * Created by Shayne Even on 27/05/2018.
+ * Holds the scores and actions between two prisoner agents
  */
 
 public class TesterResult {

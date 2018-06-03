@@ -14,40 +14,52 @@ import shayne.even.prisonerssandpit.ui.views.PrisonerListView;
 import shayne.even.prisonerssandpit.ui.views.PrisonerRowView;
 
 /**
- * Created by Shayne Even on 27/05/2018.
+ * Implementation of the Base PrisonerListPresenter
  */
 
-abstract class PrisonerListPresenterImpl implements PrisonerListPresenter, OnGetPrisonersFinishedListener,
+abstract class PrisonerListPresenterImpl implements PrisonerListPresenter,
+        OnGetPrisonersFinishedListener,
         OnGetPrisonerFinishedListener {
-    protected ArrayList<Prisoner> mPrisoners;
+    ArrayList<Prisoner> mPrisoners;
     private PrisonerListView mView;
     protected Context mContext;
-    NoEntriesListener mListener;
+    private NoEntriesListener mListener;
 
 
-    public PrisonerListPresenterImpl(PrisonerListView view, Context context,
-                                     NoEntriesListener listener) {
+    PrisonerListPresenterImpl(PrisonerListView view, Context context,
+                              NoEntriesListener listener) {
         mPrisoners = new ArrayList<>();
         mView = view;
         mContext = context;
         mListener = listener;
     }
 
+    /**
+     * {@inheritDoc}
+     * notifies the view the prisoners list has changed and checks if the listener should be
+     * notified that no results were returned
+     * @param prisoners the results of the async task
+     */
     @Override
     public void onSuccess(ArrayList<Prisoner> prisoners) {
         mPrisoners = prisoners;
         mView.notifyPrisonerDataChanged();
-        onFinishGetAllPrisoners();
+        if (getPrisonerRowCount() == 0 && mListener != null) mListener.onNoEntries();
     }
 
+    /**
+     * {@inheritDoc}
+     * Adds the prisoner to the list and notifies the view that the list has changed
+     * @param prisoner the results of the async task
+     */
     @Override
     public void onSuccess(Prisoner prisoner) {
         mPrisoners.add(prisoner);
         mView.notifyPrisonerDataChanged();
     }
 
-    @Override
-    public void getAllPrisoners() {
+
+    void getAllPrisoners() {
         new GetAllPrisonersAsyncTask(mContext, this).execute();
     }
 
@@ -64,10 +76,5 @@ abstract class PrisonerListPresenterImpl implements PrisonerListPresenter, OnGet
     @Override
     public void appendPrisoner(long id) {
         new GetPrisonerAsyncTask(mContext, this, id).execute();
-    }
-
-    @Override
-    public void onFinishGetAllPrisoners() {
-        if (getPrisonerRowCount() == 0 && mListener != null) mListener.onNoEntries();
     }
 }

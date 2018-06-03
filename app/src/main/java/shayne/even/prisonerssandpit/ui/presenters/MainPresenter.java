@@ -14,4 +14,6 @@ public interface MainPresenter {
     void navigateToAddPrisonerView();
 
     NoEntriesListener getNoEntriesListener();
+
+    void handleInvalidResultFromAddPrisonerView();
 }

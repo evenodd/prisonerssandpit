@@ -40,6 +40,11 @@ public class MainPresenterImpl implements MainPresenter , NoEntriesListener{
     }
 
     @Override
+    public void handleInvalidResultFromAddPrisonerView() {
+        mView.displayAddPrisonerError();
+    }
+
+    @Override
     public void onNoEntries() {
         mView.showAddPrisonerTapTarget();
     }
